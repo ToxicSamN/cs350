@@ -31,8 +31,8 @@ snd_sensor = 0
 grovepi.pinMode(snd_sensor, "INPUT")
 # configure the pinMode output to use all three LEDs
 grovepi.pinMode(led_low, "OUTPUT")
-#grovepi.pinMode(led_mid, "OUTPUT")
-#grovepi.pinMode(led_hi, "OUTPUT")
+grovepi.pinMode(led_mid, "OUTPUT")
+grovepi.pinMode(led_hi, "OUTPUT")
 
 # threshold to turn the led_low on 400.00 * 5 / 1024 = 1.95v
 low_thres = 400
