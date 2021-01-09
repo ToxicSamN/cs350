@@ -34,12 +34,12 @@ grovepi.pinMode(led_low, "OUTPUT")
 grovepi.pinMode(led_mid, "OUTPUT")
 grovepi.pinMode(led_hi, "OUTPUT")
 
-# threshold to turn the led_low on 400.00 * 5 / 1024 = 1.95v
-low_thres = 400
+# threshold to turn the led_low on 125.00 * 5 / 1024 = 0.61v
+low_thres = 125
 # threshold to turn the led_mid on 400.00 * 5 / 1024 = 1.95v
-mid_thres = 800
-# threshold to turn the led_hi on 400.00 * 5 / 1024 = 1.95v
-hi_thres = 1024
+mid_thres = 400
+# threshold to turn the led_hi on 700.00 * 5 / 1024 = 3.41v
+hi_thres = 700
 
 
 def delay(t=0.5):
