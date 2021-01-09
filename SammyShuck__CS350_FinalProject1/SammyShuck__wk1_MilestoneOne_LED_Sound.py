@@ -31,11 +31,28 @@ snd_sensor = 0
 grovepi.pinMode(snd_sensor, "INPUT")
 # configure the pinMode output to use all three LEDs
 grovepi.pinMode(led_low, "OUTPUT")
-grovepi.pinMode(led_mid, "OUTPUT")
-grovepi.pinMode(led_hi, "OUTPUT")
+#grovepi.pinMode(led_mid, "OUTPUT")
+#grovepi.pinMode(led_hi, "OUTPUT")
 
-# threshold denominator defines at what point the next LED should light up
-threshold_denom = 400
+# threshold to turn the led_low on 400.00 * 5 / 1024 = 1.95v
+low_thres = 400
+# threshold to turn the led_mid on 400.00 * 5 / 1024 = 1.95v
+mid_thres = 800
+# threshold to turn the led_hi on 400.00 * 5 / 1024 = 1.95v
+hi_thres = 1024
+
+
+def delay(t=0.5):
+    time.sleep(t)
+
+
+def blink_leds(leds):
+    for l in leds:
+        grovepi.digitalWrite(l, LED_ON)
+        delay()
+
+    for l in leds:
+        grovepi.digitalWrite(l, LED_OFF)
 
 
 while True:
@@ -43,40 +60,38 @@ while True:
         # Read the sound level
         sensor_value = grovepi.analogRead(snd_sensor)
 
-        numLEDs = sensor_value / threshold_denom
+        print("sensor_value = %d" % sensor_value)
 
         # IF no sound shut off the LEDs, if loud, illuminate LEDs
-        if numLEDs < 1:
+        if sensor_value <= low_thres:
+            print("all leds off")
             grovepi.digitalWrite(led_low, LED_OFF)
             grovepi.digitalWrite(led_mid, LED_OFF)
             grovepi.digitalWrite(led_hi, LED_OFF)
+
         else:
-            if 0 < numLEDs <= 1:
-                # turn on led_low
-                grovepi.digitalWrite(led_low, LED_ON)
+            if low_thres <= sensor_value < mid_thres:
 
                 # turn off led_mid, led_hi
                 grovepi.digitalWrite(led_mid, LED_OFF)
                 grovepi.digitalWrite(led_hi, LED_OFF)
 
-            elif 1 < numLEDs <= 2:
-                # turn on led_low and led_mid
-                grovepi.digitalWrite(led_low, LED_ON)
-                grovepi.digitalWrite(led_mid, LED_ON)
+                # turn on led_low
+                print("led_low = on")
+                blink_leds([led_low])
 
+            elif mid_thres <= sensor_value < hi_thres:
                 # turn off led_hi
                 grovepi.digitalWrite(led_hi, LED_OFF)
 
-            elif numLEDs > 3:
+                # turn on led_low
+                print("led_low, led_mid = on")
+                blink_leds([led_low, led_mid])
+
+            elif sensor_value >= hi_thres :
                 # turn on led_low, led_mid, led_hi
-                grovepi.digitalWrite(led_low, LED_ON)
-                grovepi.digitalWrite(led_mid, LED_ON)
-                grovepi.digitalWrite(led_hi, LED_ON)
-
-        print("sensor_value = %d" %sensor_value)
-        print("number of LEDs lit = %d" % numLEDs)
-
-        time.sleep(0.5)
+                print("led_low, led_mid, led_hi = on")
+                blink_leds([led_low, led_mid, led_hi])
 
     except IOError:
         print("Error")
