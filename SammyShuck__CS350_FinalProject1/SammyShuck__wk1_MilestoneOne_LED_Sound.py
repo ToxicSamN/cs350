@@ -35,7 +35,7 @@ grovepi.pinMode(led_mid, "OUTPUT")
 grovepi.pinMode(led_hi, "OUTPUT")
 
 # threshold denominator defines at what point the next LED should light up
-threshold_denom = 35
+threshold_denom = 400
 
 
 while True:
