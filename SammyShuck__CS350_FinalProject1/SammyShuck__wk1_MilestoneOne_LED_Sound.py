@@ -68,6 +68,7 @@ while True:
             grovepi.digitalWrite(led_low, LED_OFF)
             grovepi.digitalWrite(led_mid, LED_OFF)
             grovepi.digitalWrite(led_hi, LED_OFF)
+            delay()
 
         else:
             if low_thres <= sensor_value < mid_thres:
