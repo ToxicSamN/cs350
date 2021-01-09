@@ -13,7 +13,6 @@
     illuminate. This is similar to that of an audio VU Meter.
 """
 
-
 import grovepi
 import time
 
