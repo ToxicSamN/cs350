@@ -76,7 +76,7 @@ while True:
         print("sensor_value = %d" %sensor_value)
         print("number of LEDs lit = %d" % numLEDs)
 
-        time.sleep(0.05)
+        time.sleep(0.25)
 
     except IOError:
         print("Error")
