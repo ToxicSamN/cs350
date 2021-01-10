@@ -105,17 +105,17 @@ mid_thres = 500
 hi_thres = 650
 
 
-def delay(t=0.001):
+def delay(t=0.5):
     time.sleep(t)
 
 
 def blink_leds(leds):
-    for l in leds:
-        grovepi.digitalWrite(l, LED_ON)
+    for led in leds:
+        grovepi.digitalWrite(led, LED_ON)
         delay()
 
-    for l in leds:
-        grovepi.digitalWrite(l, LED_OFF)
+    for led in leds:
+        grovepi.digitalWrite(led, LED_OFF)
 
 
 while True:
