@@ -123,11 +123,11 @@ while True:
         # Read the sound level
         sensor_value = grovepi.analogRead(snd_sensor)
 
-        print("sensor_value = %d" % sensor_value)
+        #print("sensor_value = %d" % sensor_value)
 
         # IF no sound shut off the LEDs, if loud, illuminate LEDs
         if sensor_value <= low_thres:
-            print("all leds off")
+            #print("all leds off")
             grovepi.digitalWrite(led_low, LED_OFF)
             grovepi.digitalWrite(led_mid, LED_OFF)
             grovepi.digitalWrite(led_hi, LED_OFF)
