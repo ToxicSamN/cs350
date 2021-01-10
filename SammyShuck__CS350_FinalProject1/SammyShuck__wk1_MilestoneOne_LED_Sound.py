@@ -87,8 +87,8 @@ led_hi = PORT.DIGITAL.D4
 LED_ON = 1
 LED_OFF = 0
 
-# sound sensor port definition.
-snd_sensor = PORT.ANALOG.A0
+# sound sensor port definition A2
+snd_sensor = PORT.ANALOG.A2
 
 # configure the pinMode input to sound sensor
 grovepi.pinMode(snd_sensor, "INPUT")
