@@ -80,6 +80,8 @@ class PORT:
 
 
 # Port Definitions for LED
+# Using 3 LEDs for visualization fun. The LEDs will need to be connected to
+# D2, D3, D4 ports
 led_low = PORT.DIGITAL.D2
 led_mid = PORT.DIGITAL.D3
 led_hi = PORT.DIGITAL.D4
@@ -87,8 +89,8 @@ led_hi = PORT.DIGITAL.D4
 LED_ON = 1
 LED_OFF = 0
 
-# sound sensor port definition A2
-snd_sensor = PORT.ANALOG.A2
+# sound sensor port definition A0
+snd_sensor = PORT.ANALOG.A0
 
 # configure the pinMode input to sound sensor
 grovepi.pinMode(snd_sensor, "INPUT")
