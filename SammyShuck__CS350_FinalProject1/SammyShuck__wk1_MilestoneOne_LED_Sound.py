@@ -42,7 +42,7 @@ mid_thres = 250
 hi_thres = 375
 
 
-def delay(t=0.5):
+def delay(t=0.01):
     time.sleep(t)
 
 
