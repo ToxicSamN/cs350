@@ -14,18 +14,81 @@
 
 import grovepi
 import time
+import enum
 
-# LED port definitions 2=D2, 3=D3, 4=D4
-led_low = 2
-led_mid = 3
-led_hi = 4
+
+# Constant declaration
+class PORT:
+    """
+    PORT object has constant definitions for the GrovePi riser board
+    See https://www.dexterindustries.com/wp-content/uploads/2013/07/grovepi_pinout.png for more
+    details.
+    """
+    class ANALOG:
+        """
+        ANALOG ports are defined as
+        A0 = 0,
+        A1 = 2,
+        A2 = 3,
+        GrovePi sockets A0,A1,A2 use the AD converter and support analogRead() values 0-1023
+        Can only use analogRead() with A0, A1, A2 (aka D14, D15, D16)
+        """
+
+        A0 = 0
+        A1 = 1
+        A2 = 2
+
+    class DIGITAL:
+        """
+        DIGITAL ports are defined as
+        D2 = 2,
+        D3 = 3,
+        D4 = 4,
+        D5 = 5,
+        D6 = 6,
+        D7 = 7,
+        D8 = 8
+        GrovePi sockets D2-D8 are digital and support 1-bit input/output, values 0-1,
+        using digitalRead() and digitalWrite().
+
+        GrovePi sockets D3,D5,D6 also support Pulse Width Modulation (PWM) which means you can
+        write 8-bit values 0-255 with analogWrite().
+        """
+
+        D2 = 2
+        D3 = 3
+        D4 = 4
+        D5 = 5
+        D6 = 6
+        D7 = 7
+        D8 = 8
+
+    class PWM:
+        """
+        Pulse Width Modulation (PWM) ports are defined as
+        PWM1 = D3 = 3,
+        PWM2 = D5 = 5,
+        PWM3 = D6 = 6,
+
+        GrovePi sockets D3,D5,D6 also support Pulse Width Modulation (PWM) which means you can
+        write 8-bit values 0-255 with analogWrite()
+        """
+
+        PWM1 = 3
+        PWM2 = 5
+        PWM3 = 6
+
+
+# Port Definitions for LED
+led_low = PORT.DIGITAL.D2
+led_mid = PORT.DIGITAL.D3
+led_hi = PORT.DIGITAL.D4
 # LED ON/OFF values
 LED_ON = 1
 LED_OFF = 0
 
 # sound sensor port definition.
-# sound sensor is an analog sensor, valid options are 0=A0, 1=A1, 2=A2
-snd_sensor = 0
+snd_sensor = PORT.ANALOG.A0
 
 # configure the pinMode input to sound sensor
 grovepi.pinMode(snd_sensor, "INPUT")
@@ -35,11 +98,11 @@ grovepi.pinMode(led_mid, "OUTPUT")
 grovepi.pinMode(led_hi, "OUTPUT")
 
 # threshold to turn the led_low on 125.00 * 5 / 1024 = 0.61v
-low_thres = 350
+low_thres = 150
 # threshold to turn the led_mid on 400.00 * 5 / 1024 = 1.95v
-mid_thres = 500
+mid_thres = 300
 # threshold to turn the led_hi on 700.00 * 5 / 1024 = 3.41v
-hi_thres = 650
+hi_thres = 450
 
 
 def delay(t=0.01):
