@@ -97,19 +97,30 @@ grovepi.pinMode(led_low, "OUTPUT")
 grovepi.pinMode(led_mid, "OUTPUT")
 grovepi.pinMode(led_hi, "OUTPUT")
 
-# threshold to turn the led_low on 125.00 * 5 / 1024 = 0.61v
+# threshold to turn the led_low on 275.00 * 5 / 1024 = 1.34v
 low_thres = 275
-# threshold to turn the led_mid on 400.00 * 5 / 1024 = 1.95v
+# threshold to turn the led_mid on 425.00 * 5 / 1024 = 2.08v
 mid_thres = 425
 # threshold to turn the led_hi on 700.00 * 5 / 1024 = 3.41v
 hi_thres = 700
 
 
 def delay(t=0.0):
+    """
+    delay is a helper function for delaying the next signal reading.
+    By default the time is set to 0.0 seconds
+    :param t: time in second to delay
+    :return: None
+    """
     time.sleep(t)
 
 
 def blink_leds(leds):
+    """
+    blink_leds is a helper function for processing the blinking of the LED lights.
+    :param leds: array of led sensor locations
+    :return: None
+    """
     for led in leds:
         grovepi.digitalWrite(led, LED_ON)
         delay()
@@ -117,7 +128,7 @@ def blink_leds(leds):
     for led in leds:
         grovepi.digitalWrite(led, LED_OFF)
 
-
+# infinite loop unti luser Ctrl+C/Z the python program
 while True:
     try:
         # Read the sound level
@@ -127,7 +138,6 @@ while True:
 
         # IF no sound shut off the LEDs, if loud, illuminate LEDs
         if sensor_value <= low_thres:
-            #print("all leds off")
             grovepi.digitalWrite(led_low, LED_OFF)
             grovepi.digitalWrite(led_mid, LED_OFF)
             grovepi.digitalWrite(led_hi, LED_OFF)
@@ -135,7 +145,6 @@ while True:
 
         else:
             if low_thres <= sensor_value < mid_thres:
-
                 # turn off led_mid, led_hi
                 grovepi.digitalWrite(led_mid, LED_OFF)
                 grovepi.digitalWrite(led_hi, LED_OFF)
