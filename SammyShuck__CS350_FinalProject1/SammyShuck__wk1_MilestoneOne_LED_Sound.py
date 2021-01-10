@@ -82,7 +82,7 @@ class PORT:
 # Port Definitions for LED
 # Using 3 LEDs for visualization fun. The LEDs will need to be connected to
 # D2, D3, D4 ports
-print("Connect LED to port D2. If you would like more visualizations connect LEDs to D3 and D4.")
+print("Connect LED to port D2. If you would like more visualizations connect LEDs to D3 and D4.\n")
 led_low = PORT.DIGITAL.D2
 led_mid = PORT.DIGITAL.D3
 led_hi = PORT.DIGITAL.D4
@@ -92,7 +92,7 @@ LED_OFF = 0
 
 # sound sensor port definition A2
 # using sound sensor port A2, as it appears on my board A0 is buggy
-print("Connect Sound Sensor to port A2.")
+print("Connect Sound Sensor to port A2.\n")
 snd_sensor = PORT.ANALOG.A2
 
 # configure the pinMode input to sound sensor
