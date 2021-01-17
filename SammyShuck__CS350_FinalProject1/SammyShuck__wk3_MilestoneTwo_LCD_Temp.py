@@ -225,7 +225,7 @@ class LCD:
         self.__text = text
         self._prep_screen(no_refresh=True)
         self._send_text()
-        
+
     def create_custom_char(self, location, pattern):
         """
         Using an array of row patterns, create a custom character or image.
@@ -255,30 +255,30 @@ def main():
     dht_sensor_port = PORT.DIGITAL.D4
     dht_sensor_type = DHT.BLUE
 
-    buf = list("Grove -Update without erase")
-    lcd.prints("".join(buf))
-    time.sleep(1)
+    # buf = list("Grove -Update without erase")
+    # lcd.prints("".join(buf))
+    # time.sleep(1)
+    #
+    # for i in range(len(buf)):
+    #     buf[i] = "."
+    #     lcd.prints_no_refresh("".join(buf))
+    #     time.sleep(0.1)
 
-    for i in range(len(buf)):
-        buf[i] = "."
-        lcd.prints_no_refresh("".join(buf))
-        time.sleep(0.1)
-
-    # while True:
-    #     try:
-    #         [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
-    #         if math.isnan(temp) is False and math.isnan(humidity) is False:
-    #             txt = ("Temp: %.02f C  humidity =%.02f%%" % (temp, humidity))
-    #             print(txt)
-    #             lcd.prints_no_refresh(txt)
-    #             #time.sleep(5)
-    #     except (IOError, TypeError) as e:
-    #         print("Error occurred: " + str(e))
-    #         break
-    #     except KeyboardInterrupt as e:
-    #         print("Keyboard Interrupt error: " + str(e))
-    #         lcd.clearScreen()
-    #         break
+    while True:
+        try:
+            [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
+            if math.isnan(temp) is False and math.isnan(humidity) is False:
+                txt = ("Temp: %.02f C  humidity =%.02f%%" % (temp, humidity))
+                print(txt)
+                lcd.prints_no_refresh(txt)
+                #time.sleep(5)
+        except (IOError, TypeError) as e:
+            print("Error occurred: " + str(e))
+            break
+        except KeyboardInterrupt as e:
+            print("Keyboard Interrupt error: " + str(e))
+            lcd.clearScreen()
+            break
 
 
 if __name__ == "__main__":
