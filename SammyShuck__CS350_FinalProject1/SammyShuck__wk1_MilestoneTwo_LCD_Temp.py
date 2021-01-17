@@ -245,13 +245,13 @@ def main():
     dht_sensor_port = PORT.DIGITAL.D4
     dht_sensor_type = DHT.BLUE
 
-    while True:
-        try:
-            [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
-        except IOError as e:
-            e=e
-        except KeyboardInterrupt as e:
-            e=e
+    # while True:
+    #     try:
+    #         [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
+    #     except IOError as e:
+    #         e=e
+    #     except KeyboardInterrupt as e:
+    #         e=e
 
     lcd.prints("Hello world\nLCD Test")
     lcd.setRGB(0, 128, 64)
