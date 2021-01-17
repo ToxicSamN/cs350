@@ -14,15 +14,19 @@
 
 # Import statements
 import grovepi
+import math
 import time
 import sys
+
 # different packages for universal windows platforms than with RPi
 if sys.platform == 'uwp':
     import winrt_smbus as smbus
+
     bus = smbus.SMBus(1)
 else:
     import smbus
     import RPi.GPIO as GPIO
+
     rev = GPIO.RPI_REVISION
     if rev == 2 or rev == 3:
         bus = smbus.SMBus(1)
@@ -37,6 +41,7 @@ class PORT:
     See https://www.dexterindustries.com/wp-content/uploads/2013/07/grovepi_pinout.png for more
     details.
     """
+
     class ANALOG:
         """
         ANALOG ports are defined as
@@ -248,6 +253,8 @@ def main():
     while True:
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
+            if math.isnan(temp) is False and math.isnan(humidity) is False:
+                print("temp = %.02f C humidity =%.02f%%" % (temp, humidity))
         except (IOError, TypeError) as e:
             print("Error occurred: " + str(e))
         except KeyboardInterrupt as e:
@@ -259,7 +266,7 @@ def main():
 
     # Slowly change the colors every 0.01 seconds.
     for c in range(0, 255):
-        lcd.setRGB(c, 255-c, 0)
+        lcd.setRGB(c, 255 - c, 0)
         time.sleep(0.01)
 
     lcd.setRGB(0, 255, 0)
