@@ -424,12 +424,12 @@ def main(out_q, err_q):
                 lcd.prints_no_refresh(lcd_txt)
 
         except IOError as ioErr:
-            err_q.put_nowait(ioErr)
-            raise ioErr
+            err_q.put(ioErr)
+            # raise ioErr
         except KeyboardInterrupt as kiErr:
             lcd.clearScreen()
-            err_q.put_nowait(kiErr)
-            raise kiErr
+            err_q.put(kiErr)
+            # raise kiErr
 
 
 def write_temp_to_database(in_q, err_q):
@@ -446,7 +446,7 @@ def write_temp_to_database(in_q, err_q):
             # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
             # write the data to a file
             # using /tmp/ as every *nix system has this dir available as R/W for everyone
-            with open("temp_hum.json", 'w') as f:
+            with open("/tmp/temp_hum.json", 'w') as f:
                 json.dump(temp_data, f)
                 f.close()  # be good and proper
 
@@ -454,11 +454,13 @@ def write_temp_to_database(in_q, err_q):
         # keep looping
         pass
     except IOError as ioErr:
-        err_q.put_nowait(ioErr)
-        raise ioErr
+        print("File IO Error")
+        err_q.put(ioErr)
+        # raise ioErr
     except BaseException as be:
-        err_q.put_nowait(be)
-        raise be
+        print("BaseException Error")
+        err_q.put(be)
+        # raise be
 
 
 if __name__ == "__main__":
