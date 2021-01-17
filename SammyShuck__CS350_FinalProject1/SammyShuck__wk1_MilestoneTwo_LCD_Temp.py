@@ -263,7 +263,7 @@ def main():
 
     lcd.setRGB(0, 255, 0)
     lcd.prints("Bye bye, this should wrap")
-    lcd.sendCommand(0x00)
+    lcd.clearScreen()
 
 
 if __name__ == "__main__":
