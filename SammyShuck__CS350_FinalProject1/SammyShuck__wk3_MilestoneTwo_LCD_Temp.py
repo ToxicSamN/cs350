@@ -379,7 +379,8 @@ def main():
             if math.isnan(temp) is False and math.isnan(humidity) is False:
                 txt = ("Temp: %.02fC\nHumidity: %.02f%%" % (temp, humidity))
                 print(txt)
-                lcd.setRGB(*TempToColor(temp))
+                r, g, b = TempToColor(temp)
+                lcd.setRGB(r, g, b)
                 lcd.prints_no_refresh(txt)
 
         except (IOError, TypeError) as e:
