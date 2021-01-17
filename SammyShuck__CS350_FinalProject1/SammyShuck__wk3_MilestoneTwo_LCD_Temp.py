@@ -374,7 +374,7 @@ def TempToColor(temp):
     return color_defs[index]
 
 
-def main(out_q, err_q):
+def main(out_q, errq):
     """
     main function declaration for main program execution
     :return:
@@ -432,7 +432,7 @@ def main(out_q, err_q):
             # raise kiErr
 
 
-def write_temp_to_database(in_q, err_q):
+def write_temp_to_database(in_q, errq):
     """
     Writes the temperature and humidity data to a database as JSON
     Expected to be ran as a separate process so the main program is
@@ -457,11 +457,11 @@ def write_temp_to_database(in_q, err_q):
         pass
     except IOError as ioErr:
         print("File IO Error")
-        err_q.put(ioErr)
+        errq.put_nowait(ioErr)
         # raise ioErr
     except BaseException as be:
         print("BaseException Error")
-        err_q.put(be)
+        errq.put(be)
         # raise be
 
 
@@ -471,8 +471,8 @@ if __name__ == "__main__":
         # go ahead and have this IO bound process processed concurrently
         # with the temperature readings
         q_mgr = multiprocessing.Manager()
-        fio_q = q_mgr.Queue()
-        err_q = q_mgr.Queue()
+        fio_q = q_mgr.Queue(maxsize=5)
+        err_q = q_mgr.Queue(maxsize=2)
 
         # create the file operation process
         fio_process = multiprocessing.Process(name="File_IO_Operation",
@@ -499,7 +499,7 @@ if __name__ == "__main__":
 
             print("Processes are dead, what are my errors")
             # retrieve the error from the queue
-            err = err_q.get()
+            err = err_q.get_nowait()
             print("raising error")
             raise err
 
