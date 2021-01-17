@@ -260,6 +260,10 @@ def TempToColor(temp):
     :return:
     """
     color_defs = [
+        (0, 0, 154),
+        (0, 0, 180),
+        (0, 0, 196),
+        (0, 0, 208),
         (0, 0, 255),
         (5, 0, 255),
         (4, 0, 255),
@@ -351,15 +355,20 @@ def TempToColor(temp):
         (255, 12, 240),
         (255, 13, 240),
         (255, 14, 240),
-        (255, 224, 255),
+        (255, 113, 245),
+        (255, 129, 246),
+        (255, 151, 248),
+        (255, 179, 250),
+        (255, 205, 251),
     ]
 
-    if temp > len(color_defs):
+    index = int(math.ceil(len(color_defs) / 2.0))
+    if index > len(color_defs):
         return color_defs[len(color_defs) - 1]
-    if temp < 0:
+    if index < 0:
         return color_defs[0]
 
-    return color_defs[int(math.ceil(temp))]
+    return color_defs[index]
 
 
 def main():
@@ -394,7 +403,7 @@ def main():
                                                               " "*h_pad, humidity))
                 # configure the LCD back-light to color to the temperature
                 r, g, b = TempToColor(temp)
-                lcd.setRGB(0.10193155655623458, 0.030421865715983376, 1.0)
+                lcd.setRGB(r, g, b)
                 # print the text
                 lcd.prints_no_refresh(txt)
 
