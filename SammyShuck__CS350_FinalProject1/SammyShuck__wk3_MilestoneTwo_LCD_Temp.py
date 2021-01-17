@@ -425,19 +425,11 @@ def main(out_q, err_q):
 
         except IOError as ioErr:
             err_q.put_nowait(ioErr)
-            break
+            raise ioErr
         except KeyboardInterrupt as kiErr:
             lcd.clearScreen()
             err_q.put_nowait(kiErr)
-            break
-
-
-# since dealing with file system IO processes it's better to
-# go ahead and have this IO bound process processed concurrency
-# with teh temperature readings
-q_mgr = multiprocessing.Manager()
-fio_q = q_mgr.Queue()
-err_q = q_mgr.Queue()
+            raise kiErr
 
 
 def write_temp_to_database(in_q, err_q):
@@ -463,10 +455,18 @@ def write_temp_to_database(in_q, err_q):
         pass
     except IOError as ioErr:
         err_q.put_nowait(ioErr)
+        raise ioErr
 
 
 if __name__ == "__main__":
     try:
+        # since dealing with file system IO processes it's better to
+        # go ahead and have this IO bound process processed concurrently
+        # with the temperature readings
+        q_mgr = multiprocessing.Manager()
+        fio_q = q_mgr.Queue()
+        err_q = q_mgr.Queue()
+
         # create the file operation process
         fio_process = multiprocessing.Process(name="File_IO_Operation",
                                               target=write_temp_to_database,
