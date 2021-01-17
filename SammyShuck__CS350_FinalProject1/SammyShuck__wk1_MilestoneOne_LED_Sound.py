@@ -5,7 +5,7 @@
     Date: 01/17/2021
     Class: CS350 Emerging Systems Architecture and Technology
     Term: 21EW3
-    Assignment: 2-3 Final Project Milestone One: Adding and LED and Sound
+    Assignment: 2-3 Final Project Milestone One: Adding an LED and Sound
 
     This script will utilize a sound sensor and three LEDs connected to a RaspberryPi.
     Depending on the sound threshold will indicate which of the three LED lights will
@@ -14,7 +14,6 @@
 
 import grovepi
 import time
-import enum
 
 
 # Constant declaration
@@ -93,7 +92,7 @@ LED_OFF = 0
 # sound sensor port definition A2
 # using sound sensor port A2, as it appears on my board A0 is buggy
 print("Connect Sound Sensor to port A2.\n")
-snd_sensor = PORT.ANALOG.A2
+snd_sensor = PORT.ANALOG.A0
 
 # configure the pinMode input to sound sensor
 grovepi.pinMode(snd_sensor, "INPUT")
@@ -133,13 +132,12 @@ def blink_leds(leds):
     for led in leds:
         grovepi.digitalWrite(led, LED_OFF)
 
+
 # infinite loop unti luser Ctrl+C/Z the python program
 while True:
     try:
         # Read the sound level
         sensor_value = grovepi.analogRead(snd_sensor)
-
-        #print("sensor_value = %d" % sensor_value)
 
         # IF no sound shut off the LEDs, if loud, illuminate LEDs
         if sensor_value <= low_thres:
