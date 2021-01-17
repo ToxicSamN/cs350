@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbfcb3a-718c-40f9-860a-e2b07d4434f7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneOne_LED_Sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneOne_LED_Sound.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +13,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneOne_LED_Sound.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="490">
               <caret line="94" column="27" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="221" selection-start-line="221" selection-end-line="221" />
+              <folding>
+                <element signature="e#486#500#0" expanded="true" />
+                <element signature="e#554#2026#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -40,6 +53,8 @@
         <option value="$PROJECT_DIR$/../GrovePi/Software/Python/grove_led_blink.py" />
         <option value="$PROJECT_DIR$/.gitattributes" />
         <option value="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneOne_LED_Sound.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py" />
       </list>
     </option>
   </component>
@@ -54,7 +69,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -77,15 +91,21 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GrovePi" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Sammy\Google Drive\_SNHU_Course_Work\BSCS-Computer_Science\CS-350-T3241_Emerging_Sys_Arch_Tech\code\cs350\SammyShuck__CS350_FinalProject1" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -110,18 +130,18 @@
       <option name="presentableId" value="Default" />
       <updated>1610218540968</updated>
       <workItem from="1610218542422" duration="22867000" />
-      <workItem from="1610767113748" duration="929000" />
+      <workItem from="1610767113748" duration="5846000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23796000" />
+    <option name="totallyTimeSpent" value="28713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49690402" weight="0.1609808" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49690402" visible="true" weight="0.1609808" />
       <window_info id="Structure" order="1" sideWeight="0.503096" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -291,10 +311,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="887">
+          <caret line="128" column="5" lean-forward="true" selection-start-line="128" selection-start-column="5" selection-end-line="128" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneOne_LED_Sound.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="490">
           <caret line="94" column="27" selection-start-line="94" selection-start-column="27" selection-end-line="94" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="221" selection-start-line="221" selection-end-line="221" />
+          <folding>
+            <element signature="e#486#500#0" expanded="true" />
+            <element signature="e#554#2026#0" />
+          </folding>
         </state>
       </provider>
     </entry>
