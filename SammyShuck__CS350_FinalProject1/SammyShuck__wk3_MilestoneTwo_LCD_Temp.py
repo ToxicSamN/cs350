@@ -394,7 +394,7 @@ def main():
                                                               " "*h_pad, humidity))
                 # configure the LCD back-light to color to the temperature
                 r, g, b = TempToColor(temp)
-                lcd.setRGB(r, g, b)
+                lcd.setRGB(0.10193155655623458, 0.030421865715983376, 1.0)
                 # print the text
                 lcd.prints_no_refresh(txt)
 
