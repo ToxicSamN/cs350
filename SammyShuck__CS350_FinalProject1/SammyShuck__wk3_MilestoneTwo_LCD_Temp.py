@@ -488,8 +488,6 @@ if __name__ == "__main__":
         # monitor for state changes from the processes
         while True:
             try:
-                print(fio_process.is_alive())
-                print(main_process.is_alive())
                 if fio_process.is_alive() and main_process.is_alive():
                     continue  # both processes are still running, continue
 
@@ -501,7 +499,7 @@ if __name__ == "__main__":
                     main_process.terminate()
 
                 # retrieve the error from the queue
-                err = err_q.get()
+                err = err_q.get_nowait()
                 raise err
 
             except queue.Empty:
