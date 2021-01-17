@@ -398,7 +398,7 @@ def main(out_q, err_q):
                     "humidity": humidity
                 })
                 # send the updated weather data to be stored
-                out_q.put_nowait(weather_data)
+                out_q.put(weather_data)
 
                 # determine padding size
                 t_pad = 0
@@ -446,7 +446,9 @@ def write_temp_to_database(in_q, err_q):
             # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
             # write the data to a file
             # using /tmp/ as every *nix system has this dir available as R/W for everyone
+            print("open file")
             with open("/tmp/temp_hum.json", 'w') as f:
+                print("dumping contents")
                 json.dump(temp_data, f)
                 f.close()  # be good and proper
 
@@ -486,6 +488,8 @@ if __name__ == "__main__":
         # monitor for state changes from the processes
         while True:
             try:
+                print(fio_process.is_alive())
+                print(main_process.is_alive())
                 if fio_process.is_alive() and main_process.is_alive():
                     pass  # both processes are still running, continue
 
