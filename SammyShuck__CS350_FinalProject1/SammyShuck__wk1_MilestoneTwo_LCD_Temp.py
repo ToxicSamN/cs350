@@ -189,7 +189,7 @@ class LCD:
         """
         self._write(0x80, cmd)
 
-    def print(self, text):
+    def prints(self, text):
         """
         Sets the LCD screen text. Use \n to move to the second line.
         Otherwise, the line will auto-wrap
@@ -198,7 +198,7 @@ class LCD:
         self.__text = text
         self._send_text()
 
-    def print_no_refresh(self, text):
+    def prints_no_refresh(self, text):
         """
         Same as print but updates teh LCD screen without clearing the display first
         :param text: string data to display onto the LCD screen
@@ -220,7 +220,7 @@ class LCD:
 
 
 lcd = LCD()
-lcd.print("Hello world\nLCD Test")
+lcd.prints("Hello world\nLCD Test")
 lcd.setRGB(0, 128, 64)
 
 # Slowly change the colors every 0.01 seconds.
@@ -229,4 +229,4 @@ for c in range(0, 255):
     time.sleep(0.01)
 
 lcd.setRGB(0, 255, 0)
-lcd.print("Bye bye, this should wrap")
+lcd.prints("Bye bye, this should wrap")
