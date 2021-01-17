@@ -456,6 +456,9 @@ def write_temp_to_database(in_q, err_q):
     except IOError as ioErr:
         err_q.put_nowait(ioErr)
         raise ioErr
+    except BaseException as be:
+        err_q.put_nowait(be)
+        raise be
 
 
 if __name__ == "__main__":
