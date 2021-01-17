@@ -5,11 +5,11 @@
     Date: 01/24/2021
     Class: CS350 Emerging Systems Architecture and Technology
     Term: 21EW3
-    Assignment: 2-3 Final Project Milestone One: Adding an LED and Sound
+    Assignment: 3-3 Final Project Milestone Two: Displaying Temperature and Humidity with Database
 
-    This script will utilize a sound sensor and three LEDs connected to a RaspberryPi.
-    Depending on the sound threshold will indicate which of the three LED lights will
-    illuminate. This is similar to that of an audio VU Meter.
+    This script will utilize a DHT sensor and a 16x2 LCD screen  connected to a RaspberryPi.
+    The LCD will diplay current readings for temperature and humidity ont he LCD screen as
+    well as store the data into a JSON file named temp_hum.json.
 """
 
 # Import statements
