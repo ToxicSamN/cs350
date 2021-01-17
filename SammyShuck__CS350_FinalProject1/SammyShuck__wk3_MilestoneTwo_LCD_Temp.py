@@ -17,6 +17,7 @@ import grovepi
 import json
 import math
 import multiprocessing
+import queue
 import sys
 import time
 
@@ -422,15 +423,15 @@ def main():
                 # print the text to LCD
                 lcd.prints_no_refresh(lcd_txt)
 
-        except IOError as e:
-            print("Error occurred: " + str(e))
-            err_q.put(e)
-            raise e  # raise the error again to signal program failure
-        except KeyboardInterrupt as e:
-            print("Keyboard Interrupt error: " + str(e))
+        except IOError as ioErr:
+            print("Error occurred: " + str(ioErr))
+            err_q.put(ioErr)
+            raise ioErr  # raise the error again to signal program failure
+        except KeyboardInterrupt as kiErr:
+            print("Keyboard Interrupt error: " + str(kiErr))
             lcd.clearScreen()
-            err_q.put(e)
-            raise e  # raise the error again to signal program failure
+            err_q.put(kiErr)
+            raise kiErr  # raise the error again to signal program failure
 
 
 # since dealing with file system IO processes it's better to
@@ -457,13 +458,14 @@ def write_temp_to_database():
             # using /tmp/ as every *nix system has this dir available as R/W for everyone
             with open("/tmp/temp_hum.json", 'w') as f:
                 json.dump(temp_data, f)
+                f.close()  # be good and proper
 
-    except fio_q.Empty:
+    except queue.Empty:
         # keep looping
         pass
-    except IOError as e:
-        print("File IO Error: ", e)
-        err_q.put(e)
+    except IOError as ioErr:
+        print("File IO Error: ", ioErr)
+        err_q.put(ioErr)
 
 
 if __name__ == "__main__":
@@ -493,8 +495,8 @@ if __name__ == "__main__":
                 # retrieve the error from the queue
                 err = err_q.get_nowait()
                 raise err
-            
-            except err_q.Empty:
+
+            except queue.Empty:
                 # no errors in error queue but processes are stopped
                 raise SystemError("Unknown error occurred")
 
