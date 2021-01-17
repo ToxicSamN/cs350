@@ -127,3 +127,4 @@ dmypy.json
 
 # Custom definitions
 *.mp4
+temp_hum.json
