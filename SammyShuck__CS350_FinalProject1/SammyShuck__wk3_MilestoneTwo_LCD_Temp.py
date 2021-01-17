@@ -441,7 +441,7 @@ def write_temp_to_database(in_q, errq):
     try:
         while True:  # loop to continuously monitor the queue
             # retrieve the data from the queue
-            temp_data = in_q.get_nowait()
+            temp_data = in_q.get()
 
             # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
             # write the data to a file
@@ -458,11 +458,9 @@ def write_temp_to_database(in_q, errq):
     except IOError as ioErr:
         print("File IO Error")
         errq.put_nowait(ioErr)
-        # raise ioErr
     except BaseException as be:
         print("BaseException Error")
         errq.put_nowait(be)
-        # raise be
 
 
 if __name__ == "__main__":
