@@ -424,11 +424,11 @@ def main(out_q, errq):
                 lcd.prints_no_refresh(lcd_txt)
 
         except IOError as ioErr:
-            err_q.put(ioErr)
+            err_q.put_nowait(ioErr)
             # raise ioErr
         except KeyboardInterrupt as kiErr:
             lcd.clearScreen()
-            err_q.put(kiErr)
+            err_q.put_nowait(kiErr)
             # raise kiErr
 
 
@@ -461,7 +461,7 @@ def write_temp_to_database(in_q, errq):
         # raise ioErr
     except BaseException as be:
         print("BaseException Error")
-        errq.put(be)
+        errq.put_nowait(be)
         # raise be
 
 
@@ -497,12 +497,10 @@ if __name__ == "__main__":
             if not main_process.is_alive():
                 main_process.terminate()
 
-            print("Processes are dead, what are my errors")
             # retrieve the error from the queue
             err = err_q.get_nowait()
-            print("raising error")
             raise err
 
     except BaseException as e:
         # capture all exceptions raised and exit the program
-        print("Error: " + str(e))
+        print("Exception: " + str(e))
