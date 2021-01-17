@@ -1,5 +1,5 @@
 """
-    SammyShuck__wk1_MilestoneOne_LED_Sound.py
+    SammyShuck__wk2_MilestoneOne_LED_Sound.py
 
     Name: Sammy Shuck
     Date: 01/17/2021
