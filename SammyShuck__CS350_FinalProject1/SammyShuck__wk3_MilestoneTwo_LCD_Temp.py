@@ -259,8 +259,9 @@ def TempToColor(temp):
     """
     Takes a temperature in Celsius and outputs an appropriate color
     :param temp: temperature to base the color from
-    :return:
+    :return: RGB value of selected color
     """
+    # color definitions are incremented every 2 degrees so that the index value is (degree / 2)
     color_defs = [
         (0, 0, 154),
         (0, 0, 180),
@@ -364,12 +365,16 @@ def TempToColor(temp):
         (255, 205, 251),
     ]
 
-    index = int(math.ceil(temp / 2.0))
+    # convert the celsius to fahrenheit, round up, then divide by 2 to identify teh array index
+    index = int(math.ceil(CtoF(temp) / 2.0))
+    # if index is greater than the number of degrees defined, then output the max color
     if index > len(color_defs):
         return color_defs[len(color_defs) - 1]
+    # if index value is less than 0 then just return the coldest color at index 0
     if index < 0:
         return color_defs[0]
 
+    # return the RGB color at index
     return color_defs[index]
 
 
