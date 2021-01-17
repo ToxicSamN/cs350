@@ -377,14 +377,15 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
-                txt = ("Temp: %.02fC\nHumidity: %.02f%%" % (temp, humidity))
-                print(txt)
+                txt = ("Temp: %.02fF\nHumidity: %.02f%%" % (CtoF(temp), humidity))
+
+                # configure the LCD back-light to color to the temperature
                 r, g, b = TempToColor(temp)
-                print("r,g,b %s, %s, %s" % (r, g, b))
                 lcd.setRGB(r, g, b)
+                # print the text
                 lcd.prints_no_refresh(txt)
 
-        except (IOError, TypeError) as e:
+        except IOError as e:
             print("Error occurred: " + str(e))
             break
         except KeyboardInterrupt as e:
