@@ -129,13 +129,16 @@ class LCD:
         Returns the cursor to the home position 0x02
         """
         self.sendCommand(0x02)
+        self._delay()
 
-    def _prep_screen(self):
+    def _prep_screen(self, no_refresh=False):
         """
         Prepares the screen for beign written to
         """
+
         self._return_cursor_home()
-        self.clearScreen()
+        if not no_refresh:
+            self.clearScreen()
         self.sendCommand(0x08 | 0x04)  # display on, no cursor
         self.sendCommand(0x28)  # two lines
         self._delay()  # delay the default amount of time
@@ -220,8 +223,9 @@ class LCD:
         :param text: string data to display onto the LCD screen
         """
         self.__text = text
-        self._prep_screen()
-
+        self._prep_screen(no_refresh=True)
+        self._send_text()
+        
     def create_custom_char(self, location, pattern):
         """
         Using an array of row patterns, create a custom character or image.
