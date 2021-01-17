@@ -377,9 +377,21 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
-                print(temp)
-                txt = ("Temp: %.02fF\nHumidity: %.02f%%" % (CtoF(temp), humidity))
 
+                # determine padding size
+                t_pad = 0
+                h_pad = 0
+                if temp < 100:
+                    t_pad = 1
+                if temp < 10:
+                    t_pad = 2
+                if humidity < 100:
+                    h_pad = 1
+                if humidity < 10:
+                    h_pad = 2
+
+                txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
+                                                              " "*h_pad, humidity))
                 # configure the LCD back-light to color to the temperature
                 r, g, b = TempToColor(temp)
                 lcd.setRGB(r, g, b)
