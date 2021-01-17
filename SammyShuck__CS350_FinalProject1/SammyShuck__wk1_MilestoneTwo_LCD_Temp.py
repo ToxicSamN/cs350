@@ -164,6 +164,14 @@ class LCD:
         """
         bus.write_byte_data(self.DISPLAY_TEXT_ADDR, *args)
 
+    def _write_rgb(self):
+        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 0, 0)
+        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 1, 0)
+        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 0x08, 0xaa)
+        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 4, self.__r)
+        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 3, self.__g)
+        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 2, self.__b)
+
     def setRGB(self, r, g, b):
         """
         setter for the R, G, B properties
@@ -174,6 +182,8 @@ class LCD:
         self.__r = r
         self.__g = g
         self.__b = b
+
+        self._write_rgb()
 
     def clearScreen(self):
         """
