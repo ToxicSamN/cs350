@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6dbfcb3a-718c-40f9-860a-e2b07d4434f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="473">
-              <caret line="221" selection-start-line="221" selection-end-line="221" />
+              <caret line="201" column="11" lean-forward="true" selection-start-line="201" selection-start-column="11" selection-end-line="201" selection-end-column="11" />
               <folding>
                 <element signature="e#486#500#0" expanded="true" />
                 <element signature="e#554#2026#0" />
@@ -130,12 +129,12 @@
       <option name="presentableId" value="Default" />
       <updated>1610218540968</updated>
       <workItem from="1610218542422" duration="22867000" />
-      <workItem from="1610767113748" duration="5846000" />
+      <workItem from="1610767113748" duration="6121000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28713000" />
+    <option name="totallyTimeSpent" value="28988000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
@@ -328,7 +327,7 @@
     <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk1_MilestoneTwo_LCD_Temp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
-          <caret line="221" selection-start-line="221" selection-end-line="221" />
+          <caret line="201" column="11" lean-forward="true" selection-start-line="201" selection-start-column="11" selection-end-line="201" selection-end-column="11" />
           <folding>
             <element signature="e#486#500#0" expanded="true" />
             <element signature="e#554#2026#0" />
