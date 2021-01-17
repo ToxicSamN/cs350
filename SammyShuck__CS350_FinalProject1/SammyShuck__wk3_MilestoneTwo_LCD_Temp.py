@@ -268,7 +268,7 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
-                txt = ("Temp: %.02f C  humidity =%.02f%%" % (temp, humidity))
+                txt = ("Temp : %.02fC\nHumidity : %.02f%%" % (temp, humidity))
                 print(txt)
                 lcd.prints_no_refresh(txt)
                 #time.sleep(5)
