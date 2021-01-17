@@ -487,24 +487,21 @@ if __name__ == "__main__":
 
         # monitor for state changes from the processes
         while True:
-            try:
-                if fio_process.is_alive() and main_process.is_alive():
-                    continue  # both processes are still running, continue
+            if fio_process.is_alive() and main_process.is_alive():
+                continue  # both processes are still running, continue
 
-                # if only oen process is terminated, need to find the one still running.
-                # be good and proper and release your resources, terminate the running process
-                if not fio_process.is_alive():
-                    fio_process.terminate()
-                if not main_process.is_alive():
-                    main_process.terminate()
+            # if only oen process is terminated, need to find the one still running.
+            # be good and proper and release your resources, terminate the running process
+            if not fio_process.is_alive():
+                fio_process.terminate()
+            if not main_process.is_alive():
+                main_process.terminate()
 
-                # retrieve the error from the queue
-                err = err_q.get_nowait()
-                raise err
-
-            except queue.Empty:
-                # no errors in error queue but processes are stopped
-                raise SystemError("Unknown error occurred")
+            print("Processes are dead, what are my errors")
+            # retrieve the error from the queue
+            err = err_q.get()
+            print("raising error")
+            raise err
 
     except BaseException as e:
         # capture all exceptions raised and exit the program
