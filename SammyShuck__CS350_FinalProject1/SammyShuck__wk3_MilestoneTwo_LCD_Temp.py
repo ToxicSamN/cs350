@@ -258,7 +258,7 @@ def CtoF(C):
 def TempToColor(temp):
     """
     Takes a temperature in Celsius and outputs an appropriate color
-    :param temp:
+    :param temp: temperature to base the color from
     :return:
     """
     color_defs = [
@@ -364,7 +364,7 @@ def TempToColor(temp):
         (255, 205, 251),
     ]
 
-    index = int(math.ceil(len(color_defs) / 2.0))
+    index = int(math.ceil(temp / 2.0))
     if index > len(color_defs):
         return color_defs[len(color_defs) - 1]
     if index < 0:
