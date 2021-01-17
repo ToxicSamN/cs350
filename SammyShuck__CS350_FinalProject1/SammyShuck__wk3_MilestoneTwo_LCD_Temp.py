@@ -257,9 +257,8 @@ def main():
             if math.isnan(temp) is False and math.isnan(humidity) is False:
                 txt = ("Temp: %.02f C  humidity =%.02f%%" % (temp, humidity))
                 print(txt)
-                lcd.prints_no_refresh("----------------\n----------------\n@@@@@@@@@@@@@@@@\n"
-                            "@@@@@@@@@@@@@@@@")
-                time.sleep(5)
+                lcd.prints_no_refresh(txt)
+                #time.sleep(5)
         except (IOError, TypeError) as e:
             print("Error occurred: " + str(e))
             break
