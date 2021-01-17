@@ -246,6 +246,7 @@ def main():
     :return:
     """
     lcd = LCD()
+    lcd.setRGB(0, 128, 64)
     lcd.clearScreen()
     dht_sensor_port = PORT.DIGITAL.D4
     dht_sensor_type = DHT.BLUE
@@ -254,25 +255,13 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
-                txt = ("temp = %.02f C humidity =%.02f%%" % (temp, humidity))
+                txt = ("temp = %.02f C  humidity =%.02f%%" % (temp, humidity))
                 lcd.prints(txt)
         except (IOError, TypeError) as e:
             print("Error occurred: " + str(e))
         except KeyboardInterrupt as e:
             print("Keyboard Interrupt: " + str(e))
             lcd.clearScreen()
-
-    lcd.prints("Hello world\nLCD Test")
-    lcd.setRGB(0, 128, 64)
-
-    # Slowly change the colors every 0.01 seconds.
-    for c in range(0, 255):
-        lcd.setRGB(c, 255 - c, 0)
-        time.sleep(0.01)
-
-    lcd.setRGB(0, 255, 0)
-    lcd.prints("Bye bye, this should wrap")
-    lcd.clearScreen()
 
 
 if __name__ == "__main__":
