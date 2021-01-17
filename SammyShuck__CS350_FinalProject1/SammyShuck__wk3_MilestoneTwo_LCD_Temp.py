@@ -1,8 +1,8 @@
 """
-    SammyShuck__wk2_MilestoneOne_LED_Sound.py
+    SammyShuck__wk3_MilestoneTwo_LCD_Temp.py
 
     Name: Sammy Shuck
-    Date: 01/17/2021
+    Date: 01/24/2021
     Class: CS350 Emerging Systems Architecture and Technology
     Term: 21EW3
     Assignment: 2-3 Final Project Milestone One: Adding an LED and Sound
@@ -17,7 +17,6 @@ import grovepi
 import json
 import math
 import multiprocessing
-import queue
 import sys
 import time
 
@@ -376,20 +375,23 @@ def TempToColor(temp):
 
 def main(out_q, errq):
     """
-    main function declaration for main program execution
-    :return:
+    Main program for collecting temperature and humidity data
+    :param out_q: multiprocessing queue to send the collected weather data to
+    :param errq: error queue for communicating exceptions to the parent process
     """
 
     weather_data = []  # list to store the weather data
 
+    # establish a new LCD object
     lcd = LCD()
-    lcd.setRGB(0, 128, 64)
-    lcd.clearScreen()
-    dht_sensor_port = PORT.DIGITAL.D4
-    dht_sensor_type = DHT.BLUE
+    lcd.setRGB(0, 128, 64)  # initial LCD background color
+    lcd.clearScreen()  # clear the screen of any contents
+    dht_sensor_port = PORT.DIGITAL.D4  # dht sensor location D4
+    dht_sensor_type = DHT.BLUE  # sensor type is blue, optionally it could be white
 
     while True:
         try:
+            # collect the data from the sensor
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
                 # dict for preparation to send JSON to database
@@ -401,16 +403,19 @@ def main(out_q, errq):
                 out_q.put(weather_data)
 
                 # determine padding size
+                # the LCD screen allows for up to 999 temperature and humidity value
+                # however, if there is only a 2 digit number (<100) then need to pad the first digit
+                # as a space. Likewise with a 1 digit value (<10).
                 t_pad = 0
                 h_pad = 0
-                if temp < 100:
-                    t_pad = 1
-                if temp < 10:
-                    t_pad = 2
+                if CtoF(temp) < 100:
+                    t_pad = 1  # 2 digit temp, ex. 98F
+                if CtoF(temp) < 10:
+                    t_pad = 2  # 1 digit temp, ex. 9F
                 if humidity < 100:
-                    h_pad = 1
+                    h_pad = 1  # 2 digit humidity, ex. 85%
                 if humidity < 10:
-                    h_pad = 2
+                    h_pad = 2  # 1 digit humidity, ex. 8%
 
                 # prepare the string for the LCD screen
                 lcd_txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
@@ -424,12 +429,11 @@ def main(out_q, errq):
                 lcd.prints_no_refresh(lcd_txt)
 
         except IOError as ioErr:
-            err_q.put_nowait(ioErr)
-            # raise ioErr
+            lcd.clearScreen()  # clear the screen an not leave remnants of previous runs
+            errq.put_nowait(ioErr)
         except KeyboardInterrupt as kiErr:
-            lcd.clearScreen()
-            err_q.put_nowait(kiErr)
-            # raise kiErr
+            lcd.clearScreen()  # clear the screen an not leave remnants of previous runs
+            errq.put_nowait(kiErr)
 
 
 def write_temp_to_database(in_q, errq):
@@ -437,11 +441,14 @@ def write_temp_to_database(in_q, errq):
     Writes the temperature and humidity data to a database as JSON
     Expected to be ran as a separate process so the main program is
     not waiting for the file system or network I/O process to complete
+    :param in_q: multiprocessing queue containing the weather data to offload
+    :param errq: error queue for communicating exceptions to the parent process
     """
     try:
         print("Writing Weather Data to File temp_hum.json")
         while True:  # loop to continuously monitor the queue
             # retrieve the data from the queue
+            # blocking queue until data is available
             temp_data = in_q.get()
 
             # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
@@ -451,15 +458,9 @@ def write_temp_to_database(in_q, errq):
                 # this truncates the file and will replace any existing data in the file
                 json.dump(temp_data, f)
                 f.close()  # be good and proper
-
-    except queue.Empty:
-        # keep looping
-        pass
     except IOError as ioErr:
-        print("File IO Error")
         errq.put_nowait(ioErr)
     except BaseException as be:
-        print("BaseException Error")
         errq.put_nowait(be)
 
 
