@@ -374,7 +374,7 @@ def TempToColor(temp):
     return color_defs[index]
 
 
-def main():
+def main(out_q, err_q):
     """
     main function declaration for main program execution
     :return:
@@ -398,7 +398,7 @@ def main():
                     "humidity": humidity
                 })
                 # send the updated weather data to be stored
-                fio_q.put_nowait(weather_data)
+                out_q.put_nowait(weather_data)
 
                 # determine padding size
                 t_pad = 0
@@ -424,12 +424,12 @@ def main():
                 lcd.prints_no_refresh(lcd_txt)
 
         except IOError as ioErr:
-            err_q.put(ioErr)
-            return
+            err_q.put_nowait(ioErr)
+            break
         except KeyboardInterrupt as kiErr:
             lcd.clearScreen()
-            err_q.put(kiErr)
-            return
+            err_q.put_nowait(kiErr)
+            break
 
 
 # since dealing with file system IO processes it's better to
@@ -440,7 +440,7 @@ fio_q = q_mgr.Queue()
 err_q = q_mgr.Queue()
 
 
-def write_temp_to_database():
+def write_temp_to_database(in_q, err_q):
     """
     Writes the temperature and humidity data to a database as JSON
     Expected to be ran as a separate process so the main program is
@@ -449,7 +449,7 @@ def write_temp_to_database():
     try:
         while True:  # loop to continuously monitor the queue
             # retrieve the data from the queue
-            temp_data = fio_q.get_nowait()
+            temp_data = in_q.get_nowait()
 
             # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
             # write the data to a file
@@ -463,18 +463,19 @@ def write_temp_to_database():
         pass
     except IOError as ioErr:
         err_q.put_nowait(ioErr)
-        return
 
 
 if __name__ == "__main__":
     try:
         # create the file operation process
         fio_process = multiprocessing.Process(name="File_IO_Operation",
-                                              target=write_temp_to_database)
+                                              target=write_temp_to_database,
+                                              kwargs={'in_q': fio_q, 'err_q': err_q})
         fio_process.start()
         # create the main process for collecting temp data and manipulating the lcd screen
         main_process = multiprocessing.Process(name="main",
-                                               target=main)
+                                               target=main,
+                                               kwargs={'out_q': fio_q, 'err_q': err_q})
         main_process.start()
 
         # monitor for state changes from the processes
