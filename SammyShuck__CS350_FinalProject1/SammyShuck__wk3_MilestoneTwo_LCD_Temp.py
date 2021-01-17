@@ -424,14 +424,12 @@ def main():
                 lcd.prints_no_refresh(lcd_txt)
 
         except IOError as ioErr:
-            print("Error occurred: " + str(ioErr))
             err_q.put(ioErr)
-            raise ioErr  # raise the error again to signal program failure
+            return
         except KeyboardInterrupt as kiErr:
-            print("Keyboard Interrupt error: " + str(kiErr))
             lcd.clearScreen()
             err_q.put(kiErr)
-            raise kiErr  # raise the error again to signal program failure
+            return
 
 
 # since dealing with file system IO processes it's better to
@@ -464,8 +462,8 @@ def write_temp_to_database():
         # keep looping
         pass
     except IOError as ioErr:
-        print("File IO Error: ", ioErr)
         err_q.put(ioErr)
+        return
 
 
 if __name__ == "__main__":
@@ -502,4 +500,4 @@ if __name__ == "__main__":
 
     except BaseException as e:
         # capture all exceptions raised and exit the program
-        raise e
+        print("Error: " + str(e))
