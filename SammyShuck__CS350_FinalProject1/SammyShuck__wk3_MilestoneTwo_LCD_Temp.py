@@ -244,6 +244,124 @@ class DHT:
     WHITE = 1
 
 
+def CtoF(C):
+    """
+    Converts Celcius to Fahrenheit
+    :param C: float valu in degrees Celsius
+    :return: float value in degrees Fahrenheit
+    """
+    return float(C * (9/5) + 32)
+
+
+def TempToColor(temp):
+    """
+    Takes a temperature in Celsius and outputs an appropriate color
+    :param temp:
+    :return:
+    """
+    color_defs = [
+        (0, 0, 255),
+        (5, 0, 255),
+        (4, 0, 255),
+        (3, 0, 255),
+        (2, 0, 255),
+        (1, 0, 255),
+        (0, 0, 255),
+        (0, 2, 255),
+        (0, 18, 255),
+        (0, 34, 255),
+        (0, 50, 255),
+        (0, 68, 255),
+        (0, 84, 255),
+        (0, 100, 255),
+        (0, 116, 255),
+        (0, 132, 255),
+        (0, 148, 255),
+        (0, 164, 255),
+        (0, 180, 255),
+        (0, 196, 255),
+        (0, 212, 255),
+        (0, 228, 255),
+        (0, 255, 244),
+        (0, 255, 208),
+        (0, 255, 168),
+        (0, 255, 131),
+        (0, 255, 92),
+        (0, 255, 54),
+        (0, 255, 16),
+        (23, 255, 0),
+        (62, 255, 0),
+        (101, 255, 0),
+        (138, 255, 0),
+        (176, 255, 0),
+        (215, 255, 0),
+        (253, 255, 0),
+        (255, 250, 0),
+        (255, 240, 0),
+        (255, 230, 0),
+        (255, 220, 0),
+        (255, 210, 0),
+        (255, 200, 0),
+        (255, 190, 0),
+        (255, 180, 0),
+        (255, 170, 0),
+        (255, 160, 0),
+        (255, 150, 0),
+        (255, 140, 0),
+        (255, 130, 0),
+        (255, 120, 0),
+        (255, 110, 0),
+        (255, 100, 0),
+        (255, 90, 0),
+        (255, 80, 0),
+        (255, 70, 0),
+        (255, 60, 0),
+        (255, 50, 0),
+        (255, 40, 0),
+        (255, 30, 0),
+        (255, 20, 0),
+        (255, 10, 0),
+        (255, 0, 0),
+        (255, 0, 16),
+        (255, 0, 32),
+        (255, 0, 48),
+        (255, 0, 64),
+        (255, 0, 80),
+        (255, 0, 96),
+        (255, 0, 112),
+        (255, 0, 128),
+        (255, 0, 144),
+        (255, 0, 160),
+        (255, 0, 176),
+        (255, 0, 192),
+        (255, 0, 208),
+        (255, 0, 224),
+        (255, 0, 240),
+        (255, 1, 240),
+        (255, 2, 240),
+        (255, 3, 240),
+        (255, 4, 240),
+        (255, 5, 240),
+        (255, 6, 240),
+        (255, 7, 240),
+        (255, 8, 240),
+        (255, 9, 240),
+        (255, 10, 240),
+        (255, 11, 240),
+        (255, 12, 240),
+        (255, 13, 240),
+        (255, 14, 240),
+        (255, 224, 255),
+    ]
+
+    if temp > len(color_defs):
+        return color_defs[len(color_defs) - 1]
+    if temp < 0:
+        return color_defs[0]
+
+    return color_defs[math.ceil(temp)]
+
+
 def main():
     """
     main function declaration for main program execution
@@ -255,23 +373,15 @@ def main():
     dht_sensor_port = PORT.DIGITAL.D4
     dht_sensor_type = DHT.BLUE
 
-    # buf = list("Grove -Update without erase")
-    # lcd.prints("".join(buf))
-    # time.sleep(1)
-    #
-    # for i in range(len(buf)):
-    #     buf[i] = "."
-    #     lcd.prints_no_refresh("".join(buf))
-    #     time.sleep(0.1)
-
     while True:
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
                 txt = ("Temp: %.02fC\nHumidity: %.02f%%" % (temp, humidity))
                 print(txt)
+                lcd.setRGB(TempToColor(temp))
                 lcd.prints_no_refresh(txt)
-                #time.sleep(5)
+
         except (IOError, TypeError) as e:
             print("Error occurred: " + str(e))
             break
