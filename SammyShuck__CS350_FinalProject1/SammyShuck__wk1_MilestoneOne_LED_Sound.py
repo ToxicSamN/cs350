@@ -92,7 +92,7 @@ LED_OFF = 0
 # sound sensor port definition A2
 # using sound sensor port A2, as it appears on my board A0 is buggy
 print("Connect Sound Sensor to port A2.\n")
-snd_sensor = PORT.ANALOG.A0
+snd_sensor = PORT.ANALOG.A2
 
 # configure the pinMode input to sound sensor
 grovepi.pinMode(snd_sensor, "INPUT")
