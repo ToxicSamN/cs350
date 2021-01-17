@@ -462,7 +462,7 @@ def write_temp_to_database():
         # keep looping
         pass
     except IOError as ioErr:
-        err_q.put(ioErr)
+        err_q.put_nowait(ioErr)
         return
 
 
@@ -491,7 +491,7 @@ if __name__ == "__main__":
                     main_process.terminate()
 
                 # retrieve the error from the queue
-                err = err_q.get_nowait()
+                err = err_q.get()
                 raise err
 
             except queue.Empty:
