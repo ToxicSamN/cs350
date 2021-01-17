@@ -230,12 +230,29 @@ class LCD:
         self._write(0x40, pattern)
 
 
+class DHT:
+    BLUE = 0
+    WHITE = 1
+
+
 def main():
     """
     main function declaration for main program execution
     :return:
     """
     lcd = LCD()
+    lcd.clearScreen()
+    dht_sensor_port = PORT.DIGITAL.D4
+    dht_sensor_type = DHT.BLUE
+
+    while True:
+        try:
+            [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
+        except IOError as e:
+            e=e
+        except KeyboardInterrupt as e:
+            e=e
+
     lcd.prints("Hello world\nLCD Test")
     lcd.setRGB(0, 128, 64)
 
@@ -246,6 +263,7 @@ def main():
 
     lcd.setRGB(0, 255, 0)
     lcd.prints("Bye bye, this should wrap")
+    lcd.sendCommand(0x00)
 
 
 if __name__ == "__main__":
