@@ -230,14 +230,23 @@ class LCD:
         self._write(0x40, pattern)
 
 
-lcd = LCD()
-lcd.prints("Hello world\nLCD Test")
-lcd.setRGB(0, 128, 64)
+def main():
+    """
+    main function declaration for main program execution
+    :return:
+    """
+    lcd = LCD()
+    lcd.prints("Hello world\nLCD Test")
+    lcd.setRGB(0, 128, 64)
 
-# Slowly change the colors every 0.01 seconds.
-for c in range(0, 255):
-    lcd.setRGB(c, 255-c, 0)
-    time.sleep(0.01)
+    # Slowly change the colors every 0.01 seconds.
+    for c in range(0, 255):
+        lcd.setRGB(c, 255-c, 0)
+        time.sleep(0.01)
 
-lcd.setRGB(0, 255, 0)
-lcd.prints("Bye bye, this should wrap")
+    lcd.setRGB(0, 255, 0)
+    lcd.prints("Bye bye, this should wrap")
+
+
+if __name__ == "__main__":
+    main()
