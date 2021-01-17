@@ -121,7 +121,7 @@ class LCD:
 
     def _return_cursor_home(self):
         """
-        Returns teh cursor to the home position 0x02
+        Returns the cursor to the home position 0x02
         """
         self.sendCommand(0x02)
 
@@ -196,6 +196,7 @@ class LCD:
         :param text: string data to display onto the LCD screen
         """
         self.__text = text
+        self._prep_screen()
         self._send_text()
 
     def prints_no_refresh(self, text):
