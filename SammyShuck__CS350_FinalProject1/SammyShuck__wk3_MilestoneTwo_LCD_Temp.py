@@ -439,6 +439,7 @@ def write_temp_to_database(in_q, errq):
     not waiting for the file system or network I/O process to complete
     """
     try:
+        print("Writing Weather Data to File temp_hum.json")
         while True:  # loop to continuously monitor the queue
             # retrieve the data from the queue
             temp_data = in_q.get()
@@ -448,7 +449,6 @@ def write_temp_to_database(in_q, errq):
             # using /tmp/ as every *nix system has this dir available as R/W for everyone
             with open("temp_hum.json", 'w+') as f:
                 # this truncates the file and will replace any existing data in the file
-                print("dumping contents")
                 json.dump(temp_data, f)
                 f.close()  # be good and proper
 
