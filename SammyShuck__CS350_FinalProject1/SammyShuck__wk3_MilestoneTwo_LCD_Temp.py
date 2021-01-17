@@ -250,7 +250,7 @@ def CtoF(C):
     :param C: float valu in degrees Celsius
     :return: float value in degrees Fahrenheit
     """
-    return float(C * (9/5) + 32)
+    return float(float(C) * (9.0/5.0) + 32)
 
 
 def TempToColor(temp):
@@ -377,6 +377,7 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
+                print(temp)
                 txt = ("Temp: %.02fF\nHumidity: %.02f%%" % (CtoF(temp), humidity))
 
                 # configure the LCD back-light to color to the temperature
