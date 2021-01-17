@@ -477,12 +477,12 @@ if __name__ == "__main__":
         # create the file operation process
         fio_process = multiprocessing.Process(name="File_IO_Operation",
                                               target=write_temp_to_database,
-                                              kwargs={'in_q': fio_q, 'err_q': err_q})
+                                              kwargs={'in_q': fio_q, 'errq': err_q})
         fio_process.start()
         # create the main process for collecting temp data and manipulating the lcd screen
         main_process = multiprocessing.Process(name="main",
                                                target=main,
-                                               kwargs={'out_q': fio_q, 'err_q': err_q})
+                                               kwargs={'out_q': fio_q, 'errq': err_q})
         main_process.start()
 
         # monitor for state changes from the processes
