@@ -14,9 +14,11 @@
 
 # Import statements
 import grovepi
+import json
 import math
-import time
+import multiprocessing
 import sys
+import time
 
 # different packages for universal windows platforms than with RPi
 if sys.platform == 'uwp':
@@ -376,6 +378,9 @@ def main():
     main function declaration for main program execution
     :return:
     """
+
+    weather_data = []  # list to store the weather data
+
     lcd = LCD()
     lcd.setRGB(0, 128, 64)
     lcd.clearScreen()
@@ -386,6 +391,13 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
+                # dict for preparation to send JSON to database
+                weather_data.append({
+                    "temperature": CtoF(temp),
+                    "humidity": humidity
+                })
+                # send the updated weather data to be stored
+                fio_q.put_nowait(weather_data)
 
                 # determine padding size
                 t_pad = 0
@@ -399,22 +411,93 @@ def main():
                 if humidity < 10:
                     h_pad = 2
 
-                txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
-                                                              " "*h_pad, humidity))
+                # prepare the string for the LCD screen
+                lcd_txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
+                                                                  " "*h_pad, humidity))
                 # configure the LCD back-light to color to the temperature
+                # using the original celsius value for temp gradient
                 r, g, b = TempToColor(temp)
                 lcd.setRGB(r, g, b)
-                # print the text
-                lcd.prints_no_refresh(txt)
+
+                # print the text to LCD
+                lcd.prints_no_refresh(lcd_txt)
 
         except IOError as e:
             print("Error occurred: " + str(e))
-            break
+            err_q.put(e)
+            raise e  # raise the error again to signal program failure
         except KeyboardInterrupt as e:
             print("Keyboard Interrupt error: " + str(e))
             lcd.clearScreen()
-            break
+            err_q.put(e)
+            raise e  # raise the error again to signal program failure
+
+
+# since dealing with file system IO processes it's better to
+# go ahead and have this IO bound process processed concurrency
+# with teh temperature readings
+q_mgr = multiprocessing.Manager()
+fio_q = q_mgr.Queue()
+err_q = q_mgr.Queue()
+
+
+def write_temp_to_database():
+    """
+    Writes the temperature and humidity data to a database as JSON
+    Expected to be ran as a separate process so the main program is
+    not waiting for the file system or network I/O process to complete
+    """
+    try:
+        while True:  # loop to continuously monitor the queue
+            # retrieve the data from the queue
+            temp_data = fio_q.get_nowait()
+
+            # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
+            # write the data to a file
+            # using /tmp/ as every *nix system has this dir available as R/W for everyone
+            with open("/tmp/temp_hum.json", 'w') as f:
+                json.dump(temp_data, f)
+
+    except fio_q.Empty:
+        # keep looping
+        pass
+    except IOError as e:
+        print("File IO Error: ", e)
+        err_q.put(e)
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        # create the file operation process
+        fio_process = multiprocessing.Process(name="File_IO_Operation",
+                                              target=write_temp_to_database)
+        fio_process.start()
+        # create the main process for collecting temp data and manipulating the lcd screen
+        main_process = multiprocessing.Process(name="main",
+                                               target=main)
+        main_process.start()
+
+        # monitor for state changes from the processes
+        while True:
+            try:
+                if fio_process.is_alive() and main_process.is_alive():
+                    pass  # both processes are still running, continue
+
+                # if only oen process is terminated, need to find the one still running.
+                # be good and proper and release your resources, terminate the running process
+                if not fio_process.is_alive():
+                    fio_process.terminate()
+                if not main_process.is_alive():
+                    main_process.terminate()
+
+                # retrieve the error from the queue
+                err = err_q.get_nowait()
+                raise err
+            
+            except err_q.Empty:
+                # no errors in error queue but processes are stopped
+                raise SystemError("Unknown error occurred")
+
+    except BaseException as e:
+        # capture all exceptions raised and exit the program
+        raise e
