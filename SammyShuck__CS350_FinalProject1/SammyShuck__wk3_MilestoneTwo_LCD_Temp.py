@@ -380,6 +380,7 @@ def main():
                 txt = ("Temp: %.02fC\nHumidity: %.02f%%" % (temp, humidity))
                 print(txt)
                 r, g, b = TempToColor(temp)
+                print("r,g,b %s, %s, %s" % (r, g, b))
                 lcd.setRGB(r, g, b)
                 lcd.prints_no_refresh(txt)
 
