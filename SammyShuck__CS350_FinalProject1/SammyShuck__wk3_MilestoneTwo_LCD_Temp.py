@@ -359,7 +359,7 @@ def TempToColor(temp):
     if temp < 0:
         return color_defs[0]
 
-    return color_defs[math.ceil(temp)]
+    return color_defs[int(math.ceil(temp))]
 
 
 def main():
