@@ -255,13 +255,14 @@ def main():
         try:
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
-                txt = ("temp = %.02f C  humidity =%.02f%%" % (temp, humidity))
+                txt = ("Temp: %.02f C  humidity =%.02f%%" % (temp, humidity))
                 print(txt)
-                lcd.prints(txt)
+                lcd.prints("----------------\n----------------\n@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@")
+                time.sleep(5)
         except (IOError, TypeError) as e:
             print("Error occurred: " + str(e))
         except KeyboardInterrupt as e:
-            print("Keyboard Interrupt: " + str(e))
+            print("Keyboard Interrupt error: " + str(e))
             lcd.clearScreen()
 
 
