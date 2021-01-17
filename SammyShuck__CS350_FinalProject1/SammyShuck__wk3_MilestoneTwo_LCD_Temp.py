@@ -446,8 +446,8 @@ def write_temp_to_database(in_q, errq):
             # ToDo: replace file storage with NoSQL database (Mongo, Couchbase, dynamoDB, etc)
             # write the data to a file
             # using /tmp/ as every *nix system has this dir available as R/W for everyone
-            print("open file")
-            with open("/tmp/temp_hum.json", 'w') as f:
+            with open("/tmp/temp_hum.json", 'w+') as f:
+                # this truncates the file and will replace any existing data in the file
                 print("dumping contents")
                 json.dump(temp_data, f)
                 f.close()  # be good and proper
