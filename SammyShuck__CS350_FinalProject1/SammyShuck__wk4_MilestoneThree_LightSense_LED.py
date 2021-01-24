@@ -493,7 +493,7 @@ if __name__ == "__main__":
 
             # Calculate resistance in K
             K = float(1023 - sensor_value * 10.0 / float(sensor_value))
-            print("sensor " + sensor_value)
+            print("sensor " + str(sensor_value))
             print(1023 - sensor_value)
             print(1023 - sensor_value * 10.0)
             print((1023 - sensor_value * 10.0) / sensor_value)
