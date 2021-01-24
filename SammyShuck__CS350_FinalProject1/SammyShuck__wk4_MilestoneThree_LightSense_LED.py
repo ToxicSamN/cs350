@@ -493,6 +493,10 @@ if __name__ == "__main__":
 
             # Calculate resistance in K
             K = float(1023 - sensor_value * 10 / sensor_value)
+            print(1023 - sensor_value)
+            print(1023 - sensor_value * 10)
+            print((1023 - sensor_value * 10) / sensor_value)
+            print(float((1023 - sensor_value * 10) / sensor_value))
 
             if K > light_threshold:
                 # turn on LED
