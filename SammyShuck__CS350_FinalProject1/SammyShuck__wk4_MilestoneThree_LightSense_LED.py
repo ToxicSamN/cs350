@@ -503,9 +503,9 @@ if __name__ == "__main__":
 
             print("sensor_value = %d resistance = %.2f" % (sensor_value, K))
             time.sleep(0.5)  # Sleep for 0.5 seconds
-            
+
     except BaseException as e:
-        print("Exception: Cleaning up")
+        print("\nException: Cleaning up")
         # turn off LED
         grovepi.digitalWrite(led, LED.OFF)
         raise e
