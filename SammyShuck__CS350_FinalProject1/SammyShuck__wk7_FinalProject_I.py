@@ -401,10 +401,8 @@ def main(out_q, errq):
             [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
             if math.isnan(temp) is False and math.isnan(humidity) is False:
                 # dict for preparation to send JSON to database
-                weather_data.append({
-                    "temperature": CtoF(temp),
-                    "humidity": humidity
-                })
+                weather_data.append([CtoF(temp), humidity])
+
                 # send the updated weather data to be stored
                 out_q.put(weather_data)
 
