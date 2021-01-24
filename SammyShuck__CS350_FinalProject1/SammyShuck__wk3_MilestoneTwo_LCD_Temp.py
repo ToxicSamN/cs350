@@ -392,7 +392,7 @@ def main(out_q, errq):
     lcd = LCD()
     lcd.setRGB(0, 128, 64)  # initial LCD background color
     lcd.clearScreen()  # clear the screen of any contents
-    dht_sensor_port = PORT.DIGITAL.D4  # dht sensor location D4
+    dht_sensor_port = PORT.DIGITAL.D2  # dht sensor location D2
     dht_sensor_type = DHT.BLUE  # sensor type is blue, optionally it could be white
 
     while True:
