@@ -392,7 +392,7 @@ def main(out_q, errq):
     lcd = LCD()
     lcd.setRGB(0, 128, 64)  # initial LCD background color
     lcd.clearScreen()  # clear the screen of any contents
-    dht_sensor_port = PORT.DIGITAL.D4  # dht sensor location D4
+    dht_sensor_port = PORT.DIGITAL.D2  # dht sensor location D2
     dht_sensor_type = DHT.BLUE  # sensor type is blue, optionally it could be white
 
     while True:
@@ -454,7 +454,7 @@ def write_temp_to_database(in_q, errq):
         # obtain output file
         outfile = os.getenv("CS350_OUTPUT", "data.json")
 
-        print("Writing Weather Data to File temp_hum.json")
+        print("Writing Weather Data to File " + outfile)
         while True:  # loop to continuously monitor the queue
             # retrieve the data from the queue
             # blocking queue until data is available
