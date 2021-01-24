@@ -13,12 +13,15 @@
 """
 
 # Import statements
+from datetime import datetime
 import grovepi
 import json
 import math
 import multiprocessing
 import os
+import signal
 import sys
+import threading
 import time
 
 # different packages for universal windows platforms than with RPi
@@ -392,45 +395,58 @@ def main(out_q, errq):
     lcd = LCD()
     lcd.setRGB(0, 128, 64)  # initial LCD background color
     lcd.clearScreen()  # clear the screen of any contents
-    dht_sensor_port = PORT.DIGITAL.D2  # dht sensor location D2
+    dht_sensor_port = PORT.DIGITAL.D7  # dht sensor location D7
     dht_sensor_type = DHT.BLUE  # sensor type is blue, optionally it could be white
+
+    # LED port definitions for red, green, blue LEDs
+    led_r = PORT.DIGITAL.D2  # red LED to D2
+    led_g = PORT.DIGITAL.D4  # green LED to D4
+    led_b = PORT.DIGITAL.D3  # blue LED to D3
+
+    light_sensor = PORT.DIGITAL.A1  # light sensor to A1
+    K_threshold = 10  # Resistance threshold for detecting day vs night
 
     while True:
         try:
-            # collect the data from the sensor
-            [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
-            if math.isnan(temp) is False and math.isnan(humidity) is False:
-                # dict for preparation to send JSON to database
-                weather_data.append([CtoF(temp), humidity])
+            if isDaylight():
 
-                # send the updated weather data to be stored
-                out_q.put(weather_data)
+                # collect the data from the sensor
+                [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
+                if math.isnan(temp) is False and math.isnan(humidity) is False:
+                    # dict for preparation to send JSON to database
+                    t = datetime.now()
+                    weather_data.append([[t.timestamp(), CtoF(temp)], [t.timestamp(), humidity]])
 
-                # determine padding size
-                # the LCD screen allows for up to 999 temperature and humidity value
-                # however, if there is only a 2 digit number (<100) then need to pad the first digit
-                # as a space. Likewise with a 1 digit value (<10).
-                t_pad = 0
-                h_pad = 0
-                if CtoF(temp) < 100:
-                    t_pad = 1  # 2 digit temp, ex. 98F
-                if CtoF(temp) < 10:
-                    t_pad = 2  # 1 digit temp, ex. 9F
-                if humidity < 100:
-                    h_pad = 1  # 2 digit humidity, ex. 85%
-                if humidity < 10:
-                    h_pad = 2  # 1 digit humidity, ex. 8%
+                    # send the updated weather data to be stored
+                    out_q.put(weather_data)
 
-                # prepare the string for the LCD screen
-                lcd_txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
-                                                                  " "*h_pad, humidity))
-                # configure the LCD back-light to color to the temperature
-                # using the original celsius value for temp gradient
-                r, g, b = TempToColor(temp)
-                lcd.setRGB(r, g, b)
+                    # determine padding size
+                    # the LCD screen allows for up to 999 temperature and humidity value
+                    # however, if there is only a 2 digit number (<100) then need to pad the first digit
+                    # as a space. Likewise with a 1 digit value (<10).
+                    t_pad = 0
+                    h_pad = 0
+                    if CtoF(temp) < 100:
+                        t_pad = 1  # 2 digit temp, ex. 98F
+                    if CtoF(temp) < 10:
+                        t_pad = 2  # 1 digit temp, ex. 9F
+                    if humidity < 100:
+                        h_pad = 1  # 2 digit humidity, ex. 85%
+                    if humidity < 10:
+                        h_pad = 2  # 1 digit humidity, ex. 8%
 
-                # print the text to LCD
-                lcd.prints_no_refresh(lcd_txt)
+                    # prepare the string for the LCD screen
+                    lcd_txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
+                                                                      " "*h_pad, humidity))
+                    # configure the LCD back-light to color to the temperature
+                    # using the original celsius value for temp gradient
+                    r, g, b = TempToColor(temp)
+                    lcd.setRGB(r, g, b)
+
+                    # print the text to LCD
+                    lcd.prints_no_refresh(lcd_txt)
+
+            time.sleep(1800)  # run every 30 minutes
 
         except IOError as ioErr:
             lcd.clearScreen()  # clear the screen an not leave remnants of previous runs
@@ -469,6 +485,10 @@ def write_temp_to_database(in_q, errq):
         errq.put_nowait(ioErr)
     except BaseException as be:
         errq.put_nowait(be)
+
+
+def isDaylight():
+    return True
 
 
 if __name__ == "__main__":
