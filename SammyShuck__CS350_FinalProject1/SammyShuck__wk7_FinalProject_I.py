@@ -416,7 +416,8 @@ def main(out_q, errq):
                     # dict for preparation to send JSON to database
                     t = datetime.now()
                     unixtime = time.mktime(t.timetuple())
-                    weather_data.append([[time.time(), CtoF(temp)], [time.time(), humidity]])
+                    weather_data.append([[int(time.time()), CtoF(temp)], [int(time.time()),
+                                                                          humidity]])
 
                     # send the updated weather data to be stored
                     out_q.put(weather_data)
