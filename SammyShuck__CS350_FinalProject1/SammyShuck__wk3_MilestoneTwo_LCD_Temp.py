@@ -454,7 +454,7 @@ def write_temp_to_database(in_q, errq):
         # obtain output file
         outfile = os.getenv("CS350_OUTPUT", "data.json")
 
-        print("Writing Weather Data to File temp_hum.json")
+        print("Writing Weather Data to File " + outfile)
         while True:  # loop to continuously monitor the queue
             # retrieve the data from the queue
             # blocking queue until data is available
