@@ -323,7 +323,8 @@ def main(out_q, errq):
                     elif 85 < temp < 95 and humidity < 80:
                         turn_on_leds([led_b])
 
-            time.sleep(10)  # run every 30 minutes
+            # Program specification states to only collect data every 30 minutes
+            time.sleep(1800)  # run every 30 minutes
 
         except IOError as ioErr:
             turn_off_leds([led_r, led_g, led_b])
