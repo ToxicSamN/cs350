@@ -496,13 +496,12 @@ if __name__ == "__main__":
 
             if K > light_threshold:
                 # turn on LED
+                print("LED ON")
                 grovepi.digitalWrite(led, LED.ON)
             else:
                 # turn off LED
+                print("LED OFF")
                 grovepi.digitalWrite(led, LED.OFF)
-
-            print("sensor_value = %d resistance = %.2f" % (sensor_value, K))
-            time.sleep(0.01)  # Sleep for 0.5 seconds
 
     except BaseException as e:
         print("\nException: Cleaning up")
