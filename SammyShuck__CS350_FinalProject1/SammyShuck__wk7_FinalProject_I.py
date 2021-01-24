@@ -447,7 +447,7 @@ def main(out_q, errq):
                     # print the text to LCD
                     lcd.prints_no_refresh(lcd_txt)
 
-            time.sleep(1800)  # run every 30 minutes
+            time.sleep(10)  # run every 30 minutes
 
         except IOError as ioErr:
             lcd.clearScreen()  # clear the screen an not leave remnants of previous runs
