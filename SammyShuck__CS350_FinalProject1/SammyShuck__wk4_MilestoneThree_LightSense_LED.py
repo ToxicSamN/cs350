@@ -16,6 +16,7 @@
 import grovepi
 import time
 
+
 # Constant declaration
 class PORT:
     """
@@ -86,6 +87,8 @@ class LED:
 
 if __name__ == "__main__":
     try:
+        led_status = LED.OFF
+
         # Setting the light sensor to Analog 0 port
         light_sensor = PORT.ANALOG.A0
         # setting the LED light to digital 4 port
@@ -104,14 +107,17 @@ if __name__ == "__main__":
             # Calculate specific resistance (K)
             K = float(1023 - sensor_value) * 10 / sensor_value
 
-            if K > light_threshold:
+            if K > light_threshold and led_status == LED.OFF:
                 # turn on LED
                 print("LED ON")
                 grovepi.digitalWrite(led, LED.ON)
-            else:
+            elif K <= light_threshold and led_status == LED.ON:
                 # turn off LED
                 print("LED OFF")
                 grovepi.digitalWrite(led, LED.OFF)
+            else:
+                print("unhandled condition .. what did you do?")
+                raise BaseException("Ya done messed up A-A-Ron")
 
     except BaseException as e:
         print("\nException: Cleaning up")
