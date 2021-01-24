@@ -492,7 +492,7 @@ if __name__ == "__main__":
             sensor_value = grovepi.analogRead(light_sensor)
 
             # Calculate specific resistance (K)
-            K = float(1023 - sensor_value) * 10.0 / sensor_value
+            K = (float)(1023 - sensor_value) * 10 / sensor_value
 
             if K > light_threshold:
                 # turn on LED
