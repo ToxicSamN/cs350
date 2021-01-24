@@ -476,10 +476,10 @@ def write_temp_to_database(in_q, errq):
 
 if __name__ == "__main__":
     try:
-        # Setting the light sensor to Analog 1 port
-        light_sensor = PORT.ANALOG.A1
-        # setting the LED light to digital 2 port
-        led = PORT.DIGITAL.D2
+        # Setting the light sensor to Analog 0 port
+        light_sensor = PORT.ANALOG.A0
+        # setting the LED light to digital 4 port
+        led = PORT.DIGITAL.D4
 
         # threshold for turning on and off the LED light
         light_threshold = 10
