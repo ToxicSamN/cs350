@@ -89,8 +89,8 @@ if __name__ == "__main__":
     try:
         led_status = LED.OFF
 
-        # Setting the light sensor to Analog 0 port
-        light_sensor = PORT.ANALOG.A0
+        # Setting the light sensor to Analog 1 port
+        light_sensor = PORT.ANALOG.A1
         # setting the LED light to digital 4 port
         led = PORT.DIGITAL.D4
 
