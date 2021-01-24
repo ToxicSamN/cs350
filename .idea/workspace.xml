@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" line="487" />
+    <bookmark url="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" line="97" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6dbfcb3a-718c-40f9-860a-e2b07d4434f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" beforeDir="false" afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk3_MilestoneTwo_LCD_Temp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+            <state relative-caret-position="603">
+              <caret line="440" column="34" lean-forward="true" selection-start-line="438" selection-start-column="8" selection-end-line="440" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -28,19 +28,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="654">
-              <caret line="502" column="30" lean-forward="true" selection-start-line="502" selection-start-column="30" selection-end-line="502" selection-end-column="30" />
+            <state relative-caret-position="68">
+              <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
               <folding>
-                <element signature="e#728#781#0" />
-                <element signature="e#792#958#0" />
+                <element signature="e#545#559#0" expanded="true" />
                 <element signature="e#1000#2473#0" />
-                <element signature="e#2491#6745#0" />
-                <element signature="e#6763#6785#0" />
                 <element signature="e#6802#6820#0" />
-                <element signature="e#6805#6986#0" />
-                <element signature="e#7016#10077#0" />
-                <element signature="e#10107#12836#0" />
-                <element signature="e#12883#14097#0" />
               </folding>
             </state>
           </provider>
@@ -145,12 +138,12 @@
       <updated>1610218540968</updated>
       <workItem from="1610218542422" duration="22867000" />
       <workItem from="1610767113748" duration="30274000" />
-      <workItem from="1611501141080" duration="1987000" />
+      <workItem from="1611501141080" duration="6703000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55128000" />
+    <option name="totallyTimeSpent" value="59844000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -354,13 +347,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk3_MilestoneTwo_LCD_Temp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk2_MilestoneOne_LED_Sound.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
@@ -368,21 +354,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk3_MilestoneTwo_LCD_Temp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="603">
+          <caret line="440" column="34" lean-forward="true" selection-start-line="438" selection-start-column="8" selection-end-line="440" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="502" column="30" lean-forward="true" selection-start-line="502" selection-start-column="30" selection-end-line="502" selection-end-column="30" />
+        <state relative-caret-position="68">
+          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding>
-            <element signature="e#728#781#0" />
-            <element signature="e#792#958#0" />
+            <element signature="e#545#559#0" expanded="true" />
             <element signature="e#1000#2473#0" />
-            <element signature="e#2491#6745#0" />
-            <element signature="e#6763#6785#0" />
             <element signature="e#6802#6820#0" />
-            <element signature="e#6805#6986#0" />
-            <element signature="e#7016#10077#0" />
-            <element signature="e#10107#12836#0" />
-            <element signature="e#12883#14097#0" />
           </folding>
         </state>
       </provider>
