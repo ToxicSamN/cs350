@@ -106,7 +106,7 @@ if __name__ == "__main__":
 
             # Calculate specific resistance (K)
             K = float(1023 - sensor_value) * 10 / sensor_value
-            print("sensor_value = %d resistance = %.2f" % (sensor_value, K))
+            # print("sensor_value = %d resistance = %.2f" % (sensor_value, K))
 
             if K > light_threshold and led_status == LED.OFF:
                 # turn on LED
@@ -118,9 +118,6 @@ if __name__ == "__main__":
                 grovepi.digitalWrite(led, LED.OFF)
                 led_status = LED.OFF
                 print("LED OFF")
-            else:
-                print("unhandled condition .. what did you do?")
-                raise BaseException("Ya done messed up A-A-Ron")
 
     except BaseException as e:
         print("\nException: Cleaning up")
