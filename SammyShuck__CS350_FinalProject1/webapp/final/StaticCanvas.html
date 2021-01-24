@@ -19,7 +19,7 @@ $.getJSON("data.json", function(data) {
         axisX: {
 		    title: "Time",
             valueType: "dateTime",
-            valueFormatString: "MM/DD/YYYY hh:mm TT"
+            valueFormatString: "MMM DD YYYY hh:mm TT"
         },
         axisY: {
 		  title: "Temperature",
@@ -42,7 +42,7 @@ $.getJSON("data.json", function(data) {
                 showInLegend: true,
                 markerSize: 0,
                 xValueType: "dateTime",
-		        xValueFormatString: "MM/DD/YYYY hh:mm TT",
+		        xValueFormatString: "MMM DD YYYY hh:mm TT",
 			    dataPoints : temp_points,
                 color: "red"
 		    },
@@ -53,7 +53,7 @@ $.getJSON("data.json", function(data) {
                 showInLegend: true,
                 markerSize: 0,
                 xValueType: "dateTime",
-		        xValueFormatString: "MM/DD/YYYY hh:mm TT",
+		        xValueFormatString: "MMM DD YYYY hh:mm TT",
 			    dataPoints : hum_points,
                 color: "blue"
             },
