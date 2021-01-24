@@ -403,7 +403,7 @@ def main(out_q, errq):
     led_g = PORT.DIGITAL.D4  # green LED to D4
     led_b = PORT.DIGITAL.D3  # blue LED to D3
 
-    light_sensor = PORT.DIGITAL.A1  # light sensor to A1
+    light_sensor = PORT.ANALOG.A1  # light sensor to A1
     K_threshold = 10  # Resistance threshold for detecting day vs night
 
     while True:
