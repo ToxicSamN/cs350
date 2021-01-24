@@ -109,12 +109,14 @@ if __name__ == "__main__":
 
             if K > light_threshold and led_status == LED.OFF:
                 # turn on LED
-                print("LED ON")
                 grovepi.digitalWrite(led, LED.ON)
+                led_status = LED.ON
+                print("LED ON")
             elif K <= light_threshold and led_status == LED.ON:
                 # turn off LED
-                print("LED OFF")
                 grovepi.digitalWrite(led, LED.OFF)
+                led_status = LED.OFF
+                print("LED OFF")
             else:
                 print("unhandled condition .. what did you do?")
                 raise BaseException("Ya done messed up A-A-Ron")
