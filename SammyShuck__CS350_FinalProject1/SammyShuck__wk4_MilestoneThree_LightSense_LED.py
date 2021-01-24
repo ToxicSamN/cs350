@@ -120,6 +120,8 @@ if __name__ == "__main__":
                 print("LED OFF")
                 print("sensor_value = %d resistance = %.2f" % (sensor_value, K))
 
+            time.sleep(0.5)
+
     except BaseException as e:
         print("\nException: Cleaning up")
         # turn off LED
