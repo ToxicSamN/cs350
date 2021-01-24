@@ -1,15 +1,22 @@
 """
-    SammyShuck__wk3_MilestoneTwo_LCD_Temp.py
+    SammyShuck__wk7_FinalProject_I.py
 
     Name: Sammy Shuck
-    Date: 01/24/2021
+    Date: 02/21/2021
     Class: CS350 Emerging Systems Architecture and Technology
     Term: 21EW3
-    Assignment: 3-3 Final Project Milestone Two: Displaying Temperature and Humidity with Database
+    Assignment: 7-1 Final Project I
 
-    This script will utilize a DHT sensor and a 16x2 LCD screen  connected to a RaspberryPi.
-    The LCD will diplay current readings for temperature and humidity ont he LCD screen as
-    well as store the data into a JSON file named temp_hum.json.
+    This script will utilize a DHT sensor, light senor and three LEDs (red, green, blue) connected
+    to a RaspberryPi.
+    The temperature and humidity data will be collected via the DHT sensor but only during the
+    daytime. Daytime will be defined by the light sensor and once it is dark data collection
+    stops. Additionally, there are three LEDs that will light up to indicate specific situations.
+
+    Green LED lights up when the last conditions are: temperature > 60 and < 85, and humidity is < 80%
+    Blue LED lights up when the last conditions are: temperature > 85 and < 95, and humidity is < 80%
+    Red LED lights up when the last conditions are: temperature > 95
+    Green and Blue LED light up when the last conditions are: humidity > 80%
 """
 
 # Import statements
@@ -19,9 +26,7 @@ import json
 import math
 import multiprocessing
 import os
-import signal
 import sys
-import threading
 import time
 
 # different packages for universal windows platforms than with RPi
@@ -103,146 +108,9 @@ class PORT:
         PWM3 = 6
 
 
-class LCD:
-    # LCD constants
-    # this device has two I2C addresses
-    DISPLAY_RGB_ADDR = 0x62
-    DISPLAY_TEXT_ADDR = 0x3e
-
-    # class constructor with optional RGB values
-    def __init__(self, r=0, g=0, b=0):
-        """
-        Class constructor for teh LCD screen handling
-        :param r: Red color value
-        :param g: Green color value
-        :param b: Blue color value
-        """
-        self.__r = r
-        self.__g = g
-        self.__b = b
-        self.__text = ""
-
-    @staticmethod
-    def _delay(t=0.5):
-        """
-        private method for pausing the program for `t` seconds
-        :param t: float value in seconds to delay
-        """
-        time.sleep(t)
-
-    def _return_cursor_home(self):
-        """
-        Returns the cursor to the home position 0x02
-        """
-        self.sendCommand(0x02)
-        self._delay()
-
-    def _prep_screen(self, no_refresh=False):
-        """
-        Prepares the screen for beign written to
-        """
-
-        self._return_cursor_home()
-        if not no_refresh:
-            self.clearScreen()
-        self.sendCommand(0x08 | 0x04)  # display on, no cursor
-        self.sendCommand(0x28)  # two lines
-        self._delay()  # delay the default amount of time
-
-    def _send_text(self):
-        """
-        Sends the text to the writer checking for new line characters and End of Line
-        situations
-        :return:
-        """
-        row = 0  # max 2 rows
-        chr_count = 0  # max 16 characters
-
-        for c in self.__text:
-            # LCD is capable of 2 rows of 16 Characters
-            if c == '\n' or chr_count == 16:
-                chr_count = 0
-                row += 1
-                if row == 2:
-                    break
-                self.sendCommand(0xc0)
-                if c == '\n':
-                    continue
-            chr_count += 1
-            self._write(0x40, ord(c))
-
-    def _write(self, *args):
-        """
-        Writes the data to the bus
-        :param args: array of values for writing
-        """
-        bus.write_byte_data(self.DISPLAY_TEXT_ADDR, *args)
-
-    def _write_rgb(self):
-        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 0, 0)
-        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 1, 0)
-        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 0x08, 0xaa)
-        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 4, self.__r)
-        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 3, self.__g)
-        bus.write_byte_data(self.DISPLAY_RGB_ADDR, 2, self.__b)
-
-    def setRGB(self, r, g, b):
-        """
-        setter for the R, G, B properties
-        :param r: Red color value
-        :param g: Green color value
-        :param b: Blue color value
-        """
-        self.__r = r
-        self.__g = g
-        self.__b = b
-
-        self._write_rgb()
-
-    def clearScreen(self):
-        """
-        Clears the LCD screen of any contents
-        """
-        self.sendCommand(0x01)
-        self._delay()  # delay the default amount of time
-
-    def sendCommand(self, cmd):
-        """
-        Sends the command `cmd` to the LCD display
-        :param cmd: byte value
-        """
-        self._write(0x80, cmd)
-
-    def prints(self, text):
-        """
-        Sets the LCD screen text. Use \n to move to the second line.
-        Otherwise, the line will auto-wrap
-        :param text: string data to display onto the LCD screen
-        """
-        self.__text = text
-        self._prep_screen()
-        self._send_text()
-
-    def prints_no_refresh(self, text):
-        """
-        Same as print but updates teh LCD screen without clearing the display first
-        :param text: string data to display onto the LCD screen
-        """
-        self.__text = text
-        self._prep_screen(no_refresh=True)
-        self._send_text()
-
-    def create_custom_char(self, location, pattern):
-        """
-        Using an array of row patterns, create a custom character or image.
-        Writes a bit pattern to LCD CGRAM
-        :param location: integer, one of 8 slots (0-7)
-        :param pattern: byte array containing the bit pattern, like as found at
-               https://omerk.github.io/lcdchargen/
-        """
-        location &= 0x07  # Make sure the location is 0-7
-        self.sendCommand(0x40 | (location << 3))
-        self._write(0x40, pattern)
+class LED:
+    ON = 1
+    OFF = 0
 
 
 class DHT:
@@ -392,9 +260,6 @@ def main(out_q, errq):
     weather_data = []  # list to store the weather data
 
     # establish a new LCD object
-    lcd = LCD()
-    lcd.setRGB(0, 128, 64)  # initial LCD background color
-    lcd.clearScreen()  # clear the screen of any contents
     dht_sensor_port = PORT.DIGITAL.D7  # dht sensor location D7
     dht_sensor_type = DHT.BLUE  # sensor type is blue, optionally it could be white
 
@@ -406,53 +271,65 @@ def main(out_q, errq):
     light_sensor = PORT.ANALOG.A1  # light sensor to A1
     K_threshold = 10  # Resistance threshold for detecting day vs night
 
+    grovepi.pinMode(light_sensor, "INPUT")  # read sensor input
+    grovepi.pinMode(led_r, "OUTPUT")  # red led light output
+    grovepi.pinMode(led_g, "OUTPUT")  # green led light output
+    grovepi.pinMode(led_b, "OUTPUT")  # blue led light output
+
     while True:
         try:
-            if isDaylight():
-
+            if isDaylight(light_sensor, K_threshold):
                 # collect the data from the sensor
                 [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
                 if math.isnan(temp) is False and math.isnan(humidity) is False:
                     # dict for preparation to send JSON to database
                     unixtime = int(time.time()) * 1000  # for some strange reason canvasJS needs the extra 0's
+
+                    # configure the canvasJS JSON structure
+                    # [
+                    # 	[ ** temperature and humidity reading 1 **
+
+                    # 		[unix timestamp, temperature in F],
+                    # 		[unix timestamp, humidity in %]
+                    # 	],
+                    # 	[ ** temperature and humidity reading 2 **
+                    # 		[unix timestamp, temperature in F],
+                    # 		[unix timestamp, humidity in %]
+                    # 	]
+                    # ]
                     weather_data.append([[unixtime, CtoF(temp)], [unixtime, humidity]])
 
                     # send the updated weather data to be stored
                     out_q.put(weather_data)
 
-                    # determine padding size
-                    # the LCD screen allows for up to 999 temperature and humidity value
-                    # however, if there is only a 2 digit number (<100) then need to pad the first digit
-                    # as a space. Likewise with a 1 digit value (<10).
-                    t_pad = 0
-                    h_pad = 0
-                    if CtoF(temp) < 100:
-                        t_pad = 1  # 2 digit temp, ex. 98F
-                    if CtoF(temp) < 10:
-                        t_pad = 2  # 1 digit temp, ex. 9F
-                    if humidity < 100:
-                        h_pad = 1  # 2 digit humidity, ex. 85%
-                    if humidity < 10:
-                        h_pad = 2  # 1 digit humidity, ex. 8%
+                    # Program Specifications
+                    # Green LED lights up when the last conditions are: temperature > 60 and < 85, and humidity is < 80%
+                    # Blue LED lights up when the last conditions are: temperature > 85 and < 95, and humidity is < 80%
+                    # Red LED lights up when the last conditions are: temperature > 95
+                    # Green and Blue LED light up when the last conditions are: humidity > 80%
+                    # FIXME: There is a potential bug in the logic here provided by the
+                    #  customer specification. If humidity == 80% then no lights, If temp == 85%
+                    #  or temp == 95% then potentially no lights. This is because the customer
+                    #  did not state to have "less than or equal to" in their specification.
 
-                    # prepare the string for the LCD screen
-                    lcd_txt = ("Temp:%s%.02fF\nHumidity:%s%.02f%%" % (" "*t_pad, CtoF(temp),
-                                                                      " "*h_pad, humidity))
-                    # configure the LCD back-light to color to the temperature
-                    # using the original celsius value for temp gradient
-                    r, g, b = TempToColor(temp)
-                    lcd.setRGB(r, g, b)
-
-                    # print the text to LCD
-                    lcd.prints_no_refresh(lcd_txt)
+                    # start by turning off the LEDs
+                    turn_off_leds([led_r, led_g, led_b])
+                    if humidity > 80:
+                        turn_on_leds([led_g, led_b])
+                    elif temp > 95:
+                        turn_on_leds([led_r])
+                    elif 60 < temp < 85 and humidity < 80:
+                        turn_on_leds([led_g])
+                    elif 85 < temp < 95 and humidity < 80:
+                        turn_on_leds([led_b])
 
             time.sleep(10)  # run every 30 minutes
 
         except IOError as ioErr:
-            lcd.clearScreen()  # clear the screen an not leave remnants of previous runs
+            turn_off_leds([led_r, led_g, led_b])
             errq.put_nowait(ioErr)
         except KeyboardInterrupt as kiErr:
-            lcd.clearScreen()  # clear the screen an not leave remnants of previous runs
+            turn_off_leds([led_r, led_g, led_b])
             errq.put_nowait(kiErr)
 
 
@@ -487,8 +364,37 @@ def write_temp_to_database(in_q, errq):
         errq.put_nowait(be)
 
 
-def isDaylight():
-    return True
+def isDaylight(light_sensor, K_threshold):
+    # read analog reading from sensor
+    sensor_value = grovepi.analogRead(light_sensor)
+
+    # Calculate specific resistance (K)
+    K = float(1023 - sensor_value) * 10 / sensor_value
+
+    if K > K_threshold:
+        return True
+
+    return False
+
+
+def turn_on_leds(leds):
+    """
+    turn_on_leds is a helper function for processing the turning on of the LED lights.
+    :param leds: array of led sensor locations
+    :return: None
+    """
+    for led in leds:
+        grovepi.digitalWrite(led, LED.ON)
+
+
+def turn_off_leds(leds):
+    """
+        turn_off_leds is a helper function for processing the turning off of the LED lights.
+        :param leds: array of led sensor locations
+        :return: None
+        """
+    for led in leds:
+        grovepi.digitalWrite(led, LED.OFF)
 
 
 if __name__ == "__main__":
