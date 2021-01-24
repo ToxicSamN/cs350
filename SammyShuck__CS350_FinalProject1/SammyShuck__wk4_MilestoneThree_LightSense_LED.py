@@ -503,6 +503,8 @@ if __name__ == "__main__":
 
             print("sensor_value = %d resistance = %.2f" % (sensor_value, K))
             time.sleep(0.5)  # Sleep for 0.5 seconds
-
+    except KeyboardInterrupt as kiErr:
+        # turn off LED
+        grovepi.digitalWrite(led, LED.OFF)
     except BaseException as e:
         raise e
