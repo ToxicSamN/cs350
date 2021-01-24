@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" line="97" />
+    <bookmark url="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" line="100" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6dbfcb3a-718c-40f9-860a-e2b07d4434f7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" beforeDir="false" afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+            <state relative-caret-position="816">
+              <caret line="119" column="49" lean-forward="true" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
               <folding>
                 <element signature="e#545#559#0" expanded="true" />
                 <element signature="e#1000#2473#0" />
@@ -138,12 +137,12 @@
       <updated>1610218540968</updated>
       <workItem from="1610218542422" duration="22867000" />
       <workItem from="1610767113748" duration="30274000" />
-      <workItem from="1611501141080" duration="6703000" />
+      <workItem from="1611501141080" duration="7011000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59844000" />
+    <option name="totallyTimeSpent" value="60152000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -363,8 +362,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        <state relative-caret-position="816">
+          <caret line="119" column="49" lean-forward="true" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
           <folding>
             <element signature="e#545#559#0" expanded="true" />
             <element signature="e#1000#2473#0" />
