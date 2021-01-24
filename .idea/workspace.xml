@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" line="487" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6dbfcb3a-718c-40f9-860a-e2b07d4434f7" name="Default Changelist" comment="" />
+    <list default="true" id="6dbfcb3a-718c-40f9-860a-e2b07d4434f7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,35 +16,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk3_MilestoneTwo_LCD_Temp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="490" selection-start-line="490" selection-end-line="490" />
+            <state relative-caret-position="306">
+              <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="654">
+              <caret line="502" column="30" lean-forward="true" selection-start-line="502" selection-start-column="30" selection-end-line="502" selection-end-column="30" />
               <folding>
-                <element signature="e#486#500#0" expanded="true" />
-                <element signature="e#554#2026#0" />
-                <element signature="e#1684#2026#0" />
-                <element signature="e#2401#5972#0" />
-                <element signature="e#2565#2636#0" />
-                <element signature="e#2925#2938#0" />
-                <element signature="e#3135#3256#0" />
-                <element signature="e#3121#3304#0" />
-                <element signature="e#3431#3900#0" />
-                <element signature="e#3939#3989#0" />
-                <element signature="e#4431#4740#0" />
-                <element signature="e#4476#4727#0" />
-                <element signature="e#3389#3538#0" />
-                <element signature="e#2797#2924#0" />
-                <element signature="e#4549#4795#0" />
-                <element signature="e#5888#6147#0" />
-                <element signature="e#5524#5972#0" />
-                <element signature="e#6560#6582#0" />
-                <element signature="e#6741#6769#0" />
-                <element signature="e#6930#9312#0" />
-                <element signature="e#7057#9107#0" />
-                <element signature="e#9626#11516#0" />
-                <element signature="e#11564#12529#0" />
+                <element signature="e#728#781#0" />
+                <element signature="e#792#958#0" />
+                <element signature="e#1000#2473#0" />
+                <element signature="e#2491#6745#0" />
+                <element signature="e#6763#6785#0" />
+                <element signature="e#6802#6820#0" />
+                <element signature="e#6805#6986#0" />
+                <element signature="e#7016#10077#0" />
+                <element signature="e#10107#12836#0" />
+                <element signature="e#12883#14097#0" />
               </folding>
             </state>
           </provider>
@@ -66,6 +68,7 @@
         <option value="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk2_MilestoneOne_LED_Sound.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk3_MilestoneTwo_LCD_Temp.py" />
+        <option value="$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py" />
       </list>
     </option>
   </component>
@@ -80,6 +83,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -102,7 +106,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -141,18 +144,19 @@
       <option name="presentableId" value="Default" />
       <updated>1610218540968</updated>
       <workItem from="1610218542422" duration="22867000" />
-      <workItem from="1610767113748" duration="29616000" />
+      <workItem from="1610767113748" duration="30274000" />
+      <workItem from="1611501141080" duration="1987000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52483000" />
+    <option name="totallyTimeSpent" value="55128000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49690402" visible="true" weight="0.1609808" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49690402" visible="true" weight="0.16257995" />
       <window_info id="Structure" order="1" sideWeight="0.503096" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -322,13 +326,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk2_MilestoneOne_LED_Sound.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="101" column="33" lean-forward="true" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/-1157189296/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -359,32 +356,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk3_MilestoneTwo_LCD_Temp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="490" selection-start-line="490" selection-end-line="490" />
+        <state relative-caret-position="306">
+          <caret line="23" column="25" lean-forward="true" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk2_MilestoneOne_LED_Sound.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="101" column="33" lean-forward="true" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SammyShuck__CS350_FinalProject1/SammyShuck__wk4_MilestoneThree_LightSense_LED.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="654">
+          <caret line="502" column="30" lean-forward="true" selection-start-line="502" selection-start-column="30" selection-end-line="502" selection-end-column="30" />
           <folding>
-            <element signature="e#486#500#0" expanded="true" />
-            <element signature="e#554#2026#0" />
-            <element signature="e#1684#2026#0" />
-            <element signature="e#2401#5972#0" />
-            <element signature="e#2565#2636#0" />
-            <element signature="e#2925#2938#0" />
-            <element signature="e#3135#3256#0" />
-            <element signature="e#3121#3304#0" />
-            <element signature="e#3431#3900#0" />
-            <element signature="e#3939#3989#0" />
-            <element signature="e#4431#4740#0" />
-            <element signature="e#4476#4727#0" />
-            <element signature="e#3389#3538#0" />
-            <element signature="e#2797#2924#0" />
-            <element signature="e#4549#4795#0" />
-            <element signature="e#5888#6147#0" />
-            <element signature="e#5524#5972#0" />
-            <element signature="e#6560#6582#0" />
-            <element signature="e#6741#6769#0" />
-            <element signature="e#6930#9312#0" />
-            <element signature="e#7057#9107#0" />
-            <element signature="e#9626#11516#0" />
-            <element signature="e#11564#12529#0" />
+            <element signature="e#728#781#0" />
+            <element signature="e#792#958#0" />
+            <element signature="e#1000#2473#0" />
+            <element signature="e#2491#6745#0" />
+            <element signature="e#6763#6785#0" />
+            <element signature="e#6802#6820#0" />
+            <element signature="e#6805#6986#0" />
+            <element signature="e#7016#10077#0" />
+            <element signature="e#10107#12836#0" />
+            <element signature="e#12883#14097#0" />
           </folding>
         </state>
       </provider>
