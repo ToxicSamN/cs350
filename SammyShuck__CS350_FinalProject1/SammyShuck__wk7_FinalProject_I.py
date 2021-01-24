@@ -344,6 +344,11 @@ def write_temp_to_database(in_q, errq):
     try:
         # obtain output file
         outfile = os.getenv("CS350_OUTPUT", "data.json")
+        # clear the contents of the data.json file initially
+        with open(outfile, 'w+') as f:
+            # this truncates the file and will replace any existing data in the file
+            json.dump("", f)
+            f.close()  # be good and proper
 
         print("Writing Weather Data to File " + outfile)
         while True:  # loop to continuously monitor the queue
