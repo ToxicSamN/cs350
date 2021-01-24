@@ -415,7 +415,8 @@ def main(out_q, errq):
                 if math.isnan(temp) is False and math.isnan(humidity) is False:
                     # dict for preparation to send JSON to database
                     t = datetime.now()
-                    weather_data.append([[t.timestamp(), CtoF(temp)], [t.timestamp(), humidity]])
+                    unixtime = time.mktime(t.timetuple())
+                    weather_data.append([[unixtime, CtoF(temp)], [unixtime, humidity]])
 
                     # send the updated weather data to be stored
                     out_q.put(weather_data)
