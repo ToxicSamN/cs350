@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+var temp_points = [];
+var hum_points = [];
+$.getJSON("data.json", function(data) {  
+	$.each(data, function(key, value){
+		temp_points.push({x: value[0][0], y: parseInt(value[0][1])});
+		hum_points.push({x: value[1][0], y: parseInt(value[1][1])});
+	});
+	var chart = new CanvasJS.Chart("chartContainer",{
+		title:{
+			text:"Plotting Temperature and Humidity"
+		},
+        axisX: {
+		    title: "Time",
+            valueType: "dateTime",
+            valueFormatString: "MMM DD YYYY hh:mm TT"
+        },
+        axisY: {
+		  title: "Temperature",
+          suffix: " F"
+        },
+        axisY2: {
+		    title: "Humidity",
+            suffix: "%"
+        },
+        legend: {
+            cursor: "pointer",
+            verticalAlign: "top",
+            horizontalAlign: "center",
+            dockInsidePlotArea: true,
+        },
+		data: [
+		    {
+			    type: "line",
+                name: "Temperature",
+                showInLegend: true,
+                markerSize: 0,
+                xValueType: "dateTime",
+		        xValueFormatString: "MMM DD YYYY hh:mm TT",
+			    dataPoints : temp_points,
+                color: "red"
+		    },
+            {
+                type: "line",
+                name: "Humidity",
+                axisYType: "secondary",
+                showInLegend: true,
+                markerSize: 0,
+                xValueType: "dateTime",
+		        xValueFormatString: "MMM DD YYYY hh:mm TT",
+			    dataPoints : hum_points,
+                color: "blue"
+            },
+        ]
+	});
+	chart.render();
+});
+}
+</script>
+
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>

@@ -127,129 +127,6 @@ def CtoF(C):
     return float(float(C) * (9.0/5.0) + 32)
 
 
-def TempToColor(temp):
-    """
-    Takes a temperature in Celsius and outputs an appropriate color
-    :param temp: temperature to base the color from
-    :return: RGB value of selected color
-    """
-    # color definitions are incremented every 2 degrees so that the index value is (degree / 2)
-    color_defs = [
-        (0, 0, 154),
-        (0, 0, 180),
-        (0, 0, 196),
-        (0, 0, 208),
-        (0, 0, 255),
-        (5, 0, 255),
-        (4, 0, 255),
-        (3, 0, 255),
-        (2, 0, 255),
-        (1, 0, 255),
-        (0, 0, 255),
-        (0, 2, 255),
-        (0, 18, 255),
-        (0, 34, 255),
-        (0, 50, 255),
-        (0, 68, 255),
-        (0, 84, 255),
-        (0, 100, 255),
-        (0, 116, 255),
-        (0, 132, 255),
-        (0, 148, 255),
-        (0, 164, 255),
-        (0, 180, 255),
-        (0, 196, 255),
-        (0, 212, 255),
-        (0, 228, 255),
-        (0, 255, 244),
-        (0, 255, 208),
-        (0, 255, 168),
-        (0, 255, 131),
-        (0, 255, 92),
-        (0, 255, 54),
-        (0, 255, 16),
-        (23, 255, 0),
-        (62, 255, 0),
-        (101, 255, 0),
-        (138, 255, 0),
-        (176, 255, 0),
-        (215, 255, 0),
-        (253, 255, 0),
-        (255, 250, 0),
-        (255, 240, 0),
-        (255, 230, 0),
-        (255, 220, 0),
-        (255, 210, 0),
-        (255, 200, 0),
-        (255, 190, 0),
-        (255, 180, 0),
-        (255, 170, 0),
-        (255, 160, 0),
-        (255, 150, 0),
-        (255, 140, 0),
-        (255, 130, 0),
-        (255, 120, 0),
-        (255, 110, 0),
-        (255, 100, 0),
-        (255, 90, 0),
-        (255, 80, 0),
-        (255, 70, 0),
-        (255, 60, 0),
-        (255, 50, 0),
-        (255, 40, 0),
-        (255, 30, 0),
-        (255, 20, 0),
-        (255, 10, 0),
-        (255, 0, 0),
-        (255, 0, 16),
-        (255, 0, 32),
-        (255, 0, 48),
-        (255, 0, 64),
-        (255, 0, 80),
-        (255, 0, 96),
-        (255, 0, 112),
-        (255, 0, 128),
-        (255, 0, 144),
-        (255, 0, 160),
-        (255, 0, 176),
-        (255, 0, 192),
-        (255, 0, 208),
-        (255, 0, 224),
-        (255, 0, 240),
-        (255, 1, 240),
-        (255, 2, 240),
-        (255, 3, 240),
-        (255, 4, 240),
-        (255, 5, 240),
-        (255, 6, 240),
-        (255, 7, 240),
-        (255, 8, 240),
-        (255, 9, 240),
-        (255, 10, 240),
-        (255, 11, 240),
-        (255, 12, 240),
-        (255, 13, 240),
-        (255, 14, 240),
-        (255, 113, 245),
-        (255, 129, 246),
-        (255, 151, 248),
-        (255, 179, 250),
-        (255, 205, 251),
-    ]
-
-    # convert the celsius to fahrenheit, round up, then divide by 2 to identify teh array index
-    index = int(math.ceil(CtoF(temp) / 2.0))
-    # if index is greater than the number of degrees defined, then output the max color
-    if index > len(color_defs):
-        return color_defs[len(color_defs) - 1]
-    # if index value is less than 0 then just return the coldest color at index 0
-    if index < 0:
-        return color_defs[0]
-
-    # return the RGB color at index
-    return color_defs[index]
-
-
 def main(out_q, errq):
     """
     Main program for collecting temperature and humidity data
@@ -370,12 +247,28 @@ def write_temp_to_database(in_q, errq):
         errq.put_nowait(be)
 
 
+def safe_divsion(x, y):
+    """
+    Simple division function to check for a ZeroDivisionError and to return
+    0 in this case.
+    :param x: numerator
+    :param y: denominator
+    :return:
+    """
+    try:
+        div = x/y
+        return div
+    except ZeroDivisionError:
+        return 0
+
+
 def isDaylight(light_sensor, K_threshold):
     # read analog reading from sensor
     sensor_value = grovepi.analogRead(light_sensor)
 
     # Calculate specific resistance (K)
-    K = float(1023 - sensor_value) * 10 / sensor_value
+    # using a safe division helper function here to prevent any ZeroDivisionError exceptions
+    K = safe_divsion(float(1023 - sensor_value) * 10, sensor_value)
 
     if K > K_threshold:
         return True
