@@ -85,6 +85,14 @@ class LED:
     OFF = 0
 
 
+def safe_divsion(x, y):
+    try:
+        div = x/y
+        return div
+    except ZeroDivisionError:
+        return 0
+
+
 if __name__ == "__main__":
     try:
         led_status = LED.OFF
@@ -105,7 +113,7 @@ if __name__ == "__main__":
             sensor_value = grovepi.analogRead(light_sensor)
 
             # Calculate specific resistance (K)
-            K = float(1023 - sensor_value) * 10 / sensor_value
+            K = safe_divsion(float(1023 - sensor_value) * 10, sensor_value)
 
             if K > light_threshold and led_status == LED.OFF:
                 # turn on LED
