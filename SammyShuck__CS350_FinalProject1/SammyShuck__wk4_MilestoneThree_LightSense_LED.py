@@ -86,6 +86,13 @@ class LED:
 
 
 def safe_divsion(x, y):
+    """
+    Simple division function to check for a ZeroDivisionError and to return
+    0 in this case.
+    :param x: numerator
+    :param y: denominator
+    :return:
+    """
     try:
         div = x/y
         return div
@@ -113,6 +120,7 @@ if __name__ == "__main__":
             sensor_value = grovepi.analogRead(light_sensor)
 
             # Calculate specific resistance (K)
+            # using a safe division helper function here to prevent any ZeroDivisionError exceptions
             K = safe_divsion(float(1023 - sensor_value) * 10, sensor_value)
 
             if K > light_threshold and led_status == LED.OFF:
