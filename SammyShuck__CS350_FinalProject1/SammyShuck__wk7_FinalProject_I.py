@@ -193,14 +193,20 @@ def main(out_q, errq):
                     #  did not state to have "less than or equal to" in their specification.
 
                     # start by turning off the LEDs
+                    print(datetime.now().strftime("%m/%d%YT%H:%M:%S") + "\tTemp: " + str(CtoF(temp)) +
+                          ", Humidity: " + humidity)
                     turn_off_leds([led_r, led_g, led_b])
                     if humidity > 80:
+                        print("LED ON: GREEN and BLUE")
                         turn_on_leds([led_g, led_b])
                     elif temp > 95:
+                        print("LED ON: RED")
                         turn_on_leds([led_r])
                     elif 60 < temp < 85 and humidity < 80:
+                        print("LED ON: GREEN")
                         turn_on_leds([led_g])
                     elif 85 < temp < 95 and humidity < 80:
+                        print("LED ON: BLUE")
                         turn_on_leds([led_b])
 
             # Program specification states to only collect data every 30 minutes
