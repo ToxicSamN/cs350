@@ -159,8 +159,11 @@ def main(out_q, errq):
                 # collect the data from the sensor
                 [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
                 if math.isnan(temp) is False and math.isnan(humidity) is False:
+
+                    # for some strange reason canvasJS needs the extra 0's for unixtime to work
+                    unixtime = int(time.time()) * 1000
+
                     # dict for preparation to send JSON to database
-                    unixtime = int(time.time()) * 1000  # for some strange reason canvasJS needs the extra 0's
 
                     # configure the canvasJS JSON structure
                     # [
@@ -263,6 +266,25 @@ def safe_divsion(x, y):
 
 
 def isDaylight(light_sensor, K_threshold):
+    """
+    isDaylight is a function for reading the light sensor and evaluating
+    the sensor based upon an input threshold defining daylight.
+    If the threshold is met or below the threshold then this indicates
+    daylight. Since daylight is defined differently around the world
+    this function avoids hard-coded daylight threshold. However,, this
+    typically is around 10K resistance.
+
+    Typically, the resistance of the LDR or Photoresistor will decrease when the ambient light
+    intensity increases.
+    This means that the output signal from this module will be HIGH in bright light, and LOW in
+    the dark.
+    :param light_sensor: Light sensor port of the GrovePi
+    :param K_threshold: Daylight definition in K resistance
+    :return: HIGH or LOW (boolean)
+    """
+    HIGH = True
+    LOW = False
+
     # read analog reading from sensor
     sensor_value = grovepi.analogRead(light_sensor)
 
@@ -270,15 +292,19 @@ def isDaylight(light_sensor, K_threshold):
     # using a safe division helper function here to prevent any ZeroDivisionError exceptions
     K = safe_divsion(float(1023 - sensor_value) * 10, sensor_value)
 
-    if K > K_threshold:
-        return True
+    # Typically, the resistance of the LDR or Photoresistor will decrease when the ambient light
+    # intensity increases.
+    # This means that the output signal from this module will be HIGH in bright light, and LOW in
+    # the dark.
+    if K <= K_threshold:
+        return HIGH
 
-    return False
+    return LOW
 
 
 def turn_on_leds(leds):
     """
-    turn_on_leds is a helper function for processing the turning on of the LED lights.
+    turn_on_leds is a helper function for processing the turning on the LED lights.
     :param leds: array of led sensor locations
     :return: None
     """
@@ -288,7 +314,7 @@ def turn_on_leds(leds):
 
 def turn_off_leds(leds):
     """
-        turn_off_leds is a helper function for processing the turning off of the LED lights.
+        turn_off_leds is a helper function for processing the turning off the LED lights.
         :param leds: array of led sensor locations
         :return: None
         """
