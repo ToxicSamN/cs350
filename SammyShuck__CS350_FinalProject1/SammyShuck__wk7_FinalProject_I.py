@@ -203,7 +203,7 @@ def main(out_q, errq):
                     elif temp > 95:
                         print("LED ON: RED")
                         turn_on_leds([led_r])
-                    elif 60 < temp < 85 and humidity < 80:
+                    elif 60 < temp and temp < 85 and humidity < 80:
                         print("LED ON: GREEN")
                         turn_on_leds([led_g])
                     elif 85 < temp < 95 and humidity < 80:
