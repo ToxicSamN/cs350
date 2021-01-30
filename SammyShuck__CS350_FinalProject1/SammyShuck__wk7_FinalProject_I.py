@@ -193,7 +193,8 @@ def main(out_q, errq):
                     #  did not state to have "less than or equal to" in their specification.
 
                     # start by turning off the LEDs
-                    print(datetime.now().strftime("%m/%d%YT%H:%M:%S") + "\tTemp: " + str(CtoF(temp)) +
+                    print(datetime.now().strftime("%m/%d/%YT%H:%M:%S") + "\tTemp: " + str(CtoF(
+                        temp)) +
                           ", Humidity: " + str(humidity))
                     turn_off_leds([led_r, led_g, led_b])
                     if humidity > 80:
