@@ -200,13 +200,13 @@ def main(out_q, errq):
                     if humidity > 80:
                         print("LED ON: GREEN and BLUE")
                         turn_on_leds([led_g, led_b])
-                    elif temp > 95:
+                    elif CtoF(temp) > 95:
                         print("LED ON: RED")
                         turn_on_leds([led_r])
-                    elif 60 < temp and temp < 85 and humidity < 80:
+                    elif 60 < CtoF(temp) < 85 and humidity < 80:
                         print("LED ON: GREEN")
                         turn_on_leds([led_g])
-                    elif 85 < temp < 95 and humidity < 80:
+                    elif 85 < CtoF(temp) < 95 and humidity < 80:
                         print("LED ON: BLUE")
                         turn_on_leds([led_b])
 
