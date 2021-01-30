@@ -194,7 +194,7 @@ def main(out_q, errq):
 
                     # start by turning off the LEDs
                     print(datetime.now().strftime("%m/%d%YT%H:%M:%S") + "\tTemp: " + str(CtoF(temp)) +
-                          ", Humidity: " + humidity)
+                          ", Humidity: " + str(humidity))
                     turn_off_leds([led_r, led_g, led_b])
                     if humidity > 80:
                         print("LED ON: GREEN and BLUE")
