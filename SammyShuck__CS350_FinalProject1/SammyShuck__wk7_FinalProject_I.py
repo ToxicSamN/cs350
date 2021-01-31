@@ -301,7 +301,7 @@ def isDaylight(light_sensor, K_threshold):
     # the dark.
     if K <= K_threshold:
         print("It is Daylight: sensor value: " + str(sensor_value) + ", resistance: " + str(
-            K) + ", threshold: " + str(K_threshold))
+            K) + ", resistance threshold: " + str(K_threshold))
         return HIGH
 
     return LOW
