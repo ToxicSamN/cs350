@@ -179,28 +179,24 @@ def main(out_q, errq):
                     # ]
                     weather_data.append([[unixtime, CtoF(temp)], [unixtime, humidity]])
 
-                    # send the updated weather data to be stored
+                    # send the updated weather data to be stored to the output channel
                     out_q.put(weather_data)
 
                     # Program Specifications
                     # Green LED lights up when the last conditions are: temperature > 60 and < 85, and humidity is < 80%
                     # Blue LED lights up when the last conditions are: temperature > 85 and < 95, and humidity is < 80%
-                    # Red LED lights up when the last conditions are: temperature > 95
-                    # Green and Blue LED light up when the last conditions are: humidity > 80%
-                    # FIXME: There is a potential bug in the logic here provided by the
-                    #  customer specification. If humidity == 80% then no lights, If temp == 85%
-                    #  or temp == 95% then potentially no lights. This is because the customer
-                    #  did not state to have "less than or equal to" in their specification.
+                    # Red LED lights up when the last conditions are: temperature >= 95
+                    # Green and Blue LED light up when the last conditions are: humidity >= 80%
 
                     # start by turning off the LEDs
                     print(datetime.now().strftime("%m/%d/%YT%H:%M:%S") + "\tTemp: " + str(CtoF(
                         temp)) +
                           ", Humidity: " + str(humidity))
                     turn_off_leds([led_r, led_g, led_b])
-                    if humidity > 80:
+                    if humidity >= 80:
                         print("LED ON: GREEN and BLUE")
                         turn_on_leds([led_g, led_b])
-                    elif CtoF(temp) > 95:
+                    elif CtoF(temp) >= 95:
                         print("LED ON: RED")
                         turn_on_leds([led_r])
                     elif 60 < CtoF(temp) < 85 and humidity < 80:
@@ -304,6 +300,8 @@ def isDaylight(light_sensor, K_threshold):
     # This means that the output signal from this module will be HIGH in bright light, and LOW in
     # the dark.
     if K <= K_threshold:
+        print("It is Daylight: sensor value: " + str(sensor_value) + ", resistance: " + str(
+            K) + ", threshold: " + str(K_threshold))
         return HIGH
 
     return LOW
