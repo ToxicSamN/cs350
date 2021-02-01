@@ -155,6 +155,10 @@ def main(out_q, errq):
 
     while True:
         try:
+            # Turn off LEDs to reset LED status prior to sensor readings
+            # since only the LED status should exist if it is daylight
+            turn_off_leds([led_r, led_g, led_b])
+
             if isDaylight(light_sensor, K_threshold):
                 # collect the data from the sensor
                 [temp, humidity] = grovepi.dht(dht_sensor_port, dht_sensor_type)
@@ -192,7 +196,6 @@ def main(out_q, errq):
                     print(datetime.now().strftime("%m/%d/%YT%H:%M:%S") + "\tTemp: " + str(CtoF(
                         temp)) +
                           ", Humidity: " + str(humidity))
-                    turn_off_leds([led_r, led_g, led_b])
                     if humidity >= 80:
                         print("LED ON: GREEN and BLUE")
                         turn_on_leds([led_g, led_b])
@@ -290,6 +293,9 @@ def isDaylight(light_sensor, K_threshold):
 
     # read analog reading from sensor
     sensor_value = grovepi.analogRead(light_sensor)
+    # if sensor value is 0 then there was likely an issue reading the sensor, so try again
+    if sensor_value == 0:
+        sensor_value = grovepi.analogRead(light_sensor)
 
     # Calculate specific resistance (K)
     # using a safe division helper function here to prevent any ZeroDivisionError exceptions
@@ -299,7 +305,7 @@ def isDaylight(light_sensor, K_threshold):
     # intensity increases.
     # This means that the output signal from this module will be HIGH in bright light, and LOW in
     # the dark.
-    if K <= K_threshold:
+    if K <= K_threshold and not sensor_value == 0:
         print("It is Daylight: sensor value: " + str(sensor_value) + ", resistance: " + str(
             K) + ", resistance threshold: " + str(K_threshold))
         return HIGH
