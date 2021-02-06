@@ -17,6 +17,19 @@
     Blue LED lights up when the last conditions are: temperature > 85 and < 95, and humidity is < 80%
     Red LED lights up when the last conditions are: temperature > 95
     Green and Blue LED light up when the last conditions are: humidity > 80%
+
+    The JSON structure is specific:
+    [
+        [ ** temperature and humidity reading 1 **
+
+            [unix timestamp, temperature in F],
+            [unix timestamp, humidity in %]
+        ],
+        [ ** temperature and humidity reading 2 **
+            [unix timestamp, temperature in F],
+            [unix timestamp, humidity in %]
+        ]
+    ]
 """
 
 # Import statements
@@ -116,15 +129,6 @@ class LED:
 class DHT:
     BLUE = 0
     WHITE = 1
-
-
-def CtoF(C):
-    """
-    Converts Celcius to Fahrenheit
-    :param C: float valu in degrees Celsius
-    :return: float value in degrees Fahrenheit
-    """
-    return float(float(C) * (9.0/5.0) + 32)
 
 
 def main(out_q, errq):
@@ -254,6 +258,15 @@ def write_temp_to_database(in_q, errq):
         errq.put_nowait(ioErr)
     except BaseException as be:
         errq.put_nowait(be)
+
+
+def CtoF(C):
+    """
+    Converts Celcius to Fahrenheit
+    :param C: float valu in degrees Celsius
+    :return: float value in degrees Fahrenheit
+    """
+    return float(float(C) * (9.0/5.0) + 32)
 
 
 def safe_divsion(x, y):
