@@ -237,7 +237,7 @@ if __name__ == "__main__":
             if fio_process.is_alive() and main_process.is_alive():
                 continue  # both processes are still running, continue
 
-            # if only oen process is terminated, need to find the one still running.
+            # if only one process is terminated, need to find the one still running.
             # be good and proper and release your resources, terminate the running process
             if not fio_process.is_alive():
                 fio_process.terminate()
