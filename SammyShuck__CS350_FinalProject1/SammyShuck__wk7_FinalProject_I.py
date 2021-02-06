@@ -335,9 +335,15 @@ def turn_off_leds(leds):
 
 if __name__ == "__main__":
     try:
-        # since dealing with file system IO processes it's better to
+        # Filesystem IO operations are process blocking functions. This
+        # has the potential to provide unpredictable behavior. As good
+        # practice would have it, blocking operations should be processed
+        # concurrently with a data collector.
+        # Since dealing with file system IO processes it's better to
         # go ahead and have this IO bound process processed concurrently
-        # with the temperature readings
+        # with the temperature readings. These two lines defines a multi-
+        # processing manager to handle concurrent data operations
+        # (collecting vs storing).
         q_mgr = multiprocessing.Manager()
         fio_q = q_mgr.Queue(maxsize=5)
         err_q = q_mgr.Queue(maxsize=2)
